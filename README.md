@@ -7,26 +7,25 @@ A Cosmoteer mod that enhances ships with AI cores that can operate nearby parts 
 - **AI Cores**: Multiple sizes of AI cores that operate parts within a 2-tile radius
 - **Crew Replacement**: AI cores can replace crew requirements for compatible parts
 - **Multi-Core Support**: Multiple AI cores can work together for parts requiring more crew
-- **Seamless Integration**: Works with existing ship designs without requiring redesigns
-- **Mod Compatibility**: Supports vanilla parts and many popular mods
+- **Mod Compatibility**: Supports vanilla parts and several popular mods
 
 ## AI Core Types
 
 ### Single Core (1x1)
 - **Capacity**: Replaces 1 crew member
-- **Range**: 2-tile radius
+- **Range**: Facing the designated part
 - **Requirements**: Control Room Large + Sensor Array
 - **Cost**: 15,000 credits
 
 ### Large Core (4x4)
-- **Capacity**: Replaces 4 crew members
-- **Range**: 2-tile radius
+- **Capacity**: Replaces 2 crew members
+- **Range**: BuffArea = [-6, -6, 16, 16]
 - **Requirements**: Single AI Core
 - **Cost**: 300,000 credits
 
 ### Behemoth Core (7x7)
 - **Capacity**: Replaces 8 crew members
-- **Range**: 2-tile radius
+- **Range**: BuffArea = [-14, -14, 35, 35]
 - **Requirements**: Large AI Core
 - **Cost**: 1,500,000 credits
 
@@ -44,9 +43,9 @@ A Cosmoteer mod that enhances ships with AI cores that can operate nearby parts 
 - **Laser Emporium**: Full automation support for all weapons
 - **General Munitions**: Support for machine guns, mortars, and artillery
 - **Modular Missiles**: Compatibility with missile systems
-- **Federation Ships**: Bridge automation
-- **Galactic Allegiance**: Enhanced automation features
-- **Starforge**: Specialized automation components
+- **Federation Ships**: Broken since 0.30.0 update.
+- **Galactic Allegiance**: All components before update. GA needs to be updated
+- **Starforge**: All components
 
 ## Installation
 
@@ -58,14 +57,9 @@ A Cosmoteer mod that enhances ships with AI cores that can operate nearby parts 
 3. Enable the mod in Cosmoteer's mod manager
 4. Start a new game or load an existing save
 
-## How It Works
-
-AI cores use a buff system to detect nearby parts and automatically provide crew functionality. When an AI core is placed within 2 tiles of a compatible part:
-
-1. The AI core applies an `Aredja2AITerminal` buff to nearby parts
-2. Compatible parts detect this buff and reduce their crew requirements
-3. Multiple AI cores can stack to handle parts requiring more crew
-4. The system works seamlessly with existing ship designs
+## How To Add Working AI Parts Yourself
+1. Follow 'how to make compatible.txt'
+2. Add the files and test your local version the best you can. When You are sure nothing is crashing, create a pull request with your updated files. I will review when I am able. Good Luck!
 
 ## Development
 
@@ -93,13 +87,12 @@ Contributions are welcome! Please feel free to:
 
 ## License
 
-This mod is provided as-is for the Cosmoteer community. Feel free to use, modify, and distribute as needed.
+This mod is provided as-is for the Cosmoteer community. Feel free to use, modify, and distribute as needed. Just give a callout to Aephix and myself if you use this mod's files for your own project.
 
 ## Credits
 
 - **Original Inspiration**: Aephix's AI Core mod
-- **Development**: Jared Hale
-- **Community Support**: Cosmoteer modding community
+- **Development**: aredja2
 
 ## Version History
 
