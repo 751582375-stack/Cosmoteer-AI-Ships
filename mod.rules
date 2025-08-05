@@ -251,6 +251,11 @@ Actions
 	{Action = Replace; Replace = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Stats/CrewRequired"; With = 4}
 	{Action = AddBase; AddBaseTo = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/tractor_beam_emitter.rules>}
 
+	// Resonance Beam Turret - Requires 4 crew
+	{Action = Remove; Remove = "<ships/terran/resonance_beam_turret/resonance_beam_turret.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/resonance_beam_turret/resonance_beam_turret.rules>/Part/Stats/CrewRequired"; With = 4}
+	{Action = AddBase; AddBaseTo = "<ships/terran/resonance_beam_turret/resonance_beam_turret.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/resonance_beam_turret.rules>}
+
 	// Sensor Array - Requires 4 crew
 	{Action = Remove; Remove = "<ships/terran/sensor_array/sensor_array.rules>/Part/Components/PartCrew"}
 	{Action = Replace; Replace = "<ships/terran/sensor_array/sensor_array.rules>/Part/Stats/CrewRequired"; With = 4}
