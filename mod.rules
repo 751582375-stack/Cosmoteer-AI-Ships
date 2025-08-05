@@ -1,0 +1,954 @@
+ID = aredja.ai_ships
+Name = "AI Ships"
+Version = "1.0.0"
+CompatibleGameVersions = ["0.30.0"]
+ModifiesGameplay = true
+ModifiesMultiplayer = true
+Author = "aredja"
+Logo = "logo.png"
+StringsFolder = "strings"
+Description = "Enhances ships with AI cores that can operate nearby parts autonomously.\n\n"\
+             "Features:\n"\
+             "- AI cores that operate parts within a 2-tile radius\n"\
+             "- Compatible with most vanilla parts that require crew\n"\
+             "- Multiple AI cores can work together for parts requiring more crew\n"\
+             "- Seamless integration with existing ship designs\n\n"\
+             "Inspired by Aephix's AI Core mod. I've attempted to maintain compatibility with all the mods that Aephix's version supported. "\
+             "If you find any compatibility issues, please let me know.\n\n"\
+             "Currently includes support for vanilla parts and attempts compatibility with Modular Missiles mod."
+
+Actions
+[
+	// -----------------------------------------------------
+	// PART REGISTRATION: Add the AI cores to the game
+	// -----------------------------------------------------
+	
+		// Add the small single-tile AI core to the Terran parts list
+		{
+			Action = Add
+			AddTo = "<ships/terran/terran.rules>/Terran/Parts"
+			ToAdd = &<single_core/single_core.rules>/Part
+		}
+		
+		// Add the large 4x4 AI core to the Terran parts list
+		{
+			Action = Add
+			AddTo = "<ships/terran/terran.rules>/Terran/Parts"
+			ToAdd = &<large_core/large_core.rules>/Part
+		}
+		
+		// Add the behemeth 7x7 AI core to the Terran parts list
+		{
+			Action = Add
+			AddTo = "<ships/terran/terran.rules>/Terran/Parts"
+			ToAdd = &<behemeth_core/behemeth_core.rules>/Part
+		}
+	
+	// -----------------------------------------------------
+	// TECHNOLOGY REGISTRATION: Add the AI cores to the tech tree
+	// -----------------------------------------------------
+	
+	// Define the small AI core technology in the career mode tech tree
+	// Requires Control Room Large and Sensor Array as prerequisites
+	{
+		Action = Add
+		AddTo = "<modes/career/techs.rules>/Techs"
+		ToAdd
+		{
+			ID = aredja.technology.ai_core
+			NameKey = &<single_core/single_core.rules>/Part/NameKey
+			DescriptionKey = &<single_core/single_core.rules>/Part/DescriptionKey
+			Icon = &<single_core/single_core.rules>/Part/EditorIcon
+			EditorGroups = ["Crew"]
+			PartsUnlocked = [ &<single_core/single_core.rules>/Part/ID ]
+			Cost = 15000
+			Prerequisites = [ cosmoteer.control_room_large, cosmoteer.sensor_array ]
+		}
+	}
+	
+	// Define the large AI core technology in the career mode tech tree
+	// Requires the small AI core as a prerequisite
+	{
+		Action = Add
+		AddTo = "<modes/career/techs.rules>/Techs"
+		ToAdd
+		{
+			ID = aredja.technology.ai_large_core
+			NameKey = &<large_core/large_core.rules>/Part/NameKey
+			DescriptionKey = &<large_core/large_core.rules>/Part/DescriptionKey
+			Icon = &<large_core/large_core.rules>/Part/EditorIcon
+			EditorGroups = ["Crew"]
+			PartsUnlocked = [ &<large_core/large_core.rules>/Part/ID ]
+			Cost = 300000
+			Prerequisites = [ aredja.technology.ai_core ]
+		}
+	}
+	
+	// Define the behemeth AI core technology in the career mode tech tree
+	// Requires the large AI core as a prerequisite
+	{
+		Action = Add
+		AddTo = "<modes/career/techs.rules>/Techs"
+		ToAdd
+		{
+			ID = aredja.technology.ai_behemeth_core
+			NameKey = &<behemeth_core/behemeth_core.rules>/Part/NameKey
+			DescriptionKey = &<behemeth_core/behemeth_core.rules>/Part/DescriptionKey
+			Icon = &<behemeth_core/behemeth_core.rules>/Part/EditorIcon
+			EditorGroups = ["Crew"]
+			PartsUnlocked = [ &<behemeth_core/behemeth_core.rules>/Part/ID ]
+			Cost = 1500000
+			Prerequisites = [ aredja.technology.ai_large_core ]
+		}
+	}
+	
+	// Add custom stat display for AI Operating Power in the part stats panel
+	{
+		Action = Add
+		AddTo = "<gui/game/parts/part_stats.rules>/PartStats"
+		ToAdd
+		{
+			ID = Aredja2OperatingPower
+			FormatKey = "Stats/Aredja2OperatingPower"
+		}
+	}
+	
+	// -----------------------------------------------------
+	// BUFF DEFINITION: Define the AI Terminal buff
+	// -----------------------------------------------------
+	
+	// Create or override the Aredja2AITerminal buff with visual styling
+	{
+		Action = Overrides
+		OverrideIn = "<buffs/buffs.rules>/Aredja2AITerminal"
+		CreateIfNotExisting = true
+		Overrides
+		{
+			CombineMode = Add
+			BaseValue = 0
+
+			Icon
+			{
+				Texture
+				{
+					File = "single_core/buff_ai.png"
+					MipLevels = 2
+					SampleMode = Linear
+				}
+				Size = [2, 2]
+			}
+			IconTextFormatKey = "BuildBox/BuffAredja2AITerminal"
+
+			RectBorderColor = [10, 212, 98, 160]
+			RectFillColor = [10, 212, 98, 64]
+		}
+	}
+	
+	// Make all parts able to receive the AI Terminal buff
+	{
+		Action = Add
+		AddTo = "<ships/base_part.rules>/Part/ReceivableBuffs"
+		Name = Aredja2AITerminal
+		ToAdd = Aredja2AITerminal
+	}
+
+	// -----------------------------------------------------
+	// VANILLA COMPONENTS MODIFICATION
+	// Each section below modifies a vanilla part to work with AI cores
+	// -----------------------------------------------------
+	
+	// Small Laser Blaster - Requires 1 crew
+	{Action = Remove; Remove = "<ships/terran/laser_blaster_small/laser_blaster_small.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/laser_blaster_small/laser_blaster_small.rules>/Part/Stats/CrewRequired"; With = 1}
+	{Action = AddBase; AddBaseTo = "<ships/terran/laser_blaster_small/laser_blaster_small.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/laser_blaster_small.rules>}
+
+	// Large Laser Blaster - Requires 2 crew
+	{Action = Remove; Remove = "<ships/terran/laser_blaster_large/laser_blaster_large.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/laser_blaster_large/laser_blaster_large.rules>/Part/Stats/CrewRequired"; With = 2}
+	{Action = AddBase; AddBaseTo = "<ships/terran/laser_blaster_large/laser_blaster_large.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/laser_blaster_large.rules>}
+
+	// Disruptor - Requires 1 crew
+	{Action = Remove; Remove = "<ships/terran/disruptor/disruptor.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/disruptor/disruptor.rules>/Part/Stats/CrewRequired"; With = 1}
+	{Action = AddBase; AddBaseTo = "<ships/terran/disruptor/disruptor.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/disruptor.rules>}
+
+	// Ion Beam Emitter - Requires 2 crew
+	{Action = Remove; Remove = "<ships/terran/ion_beam_emitter/ion_beam_emitter.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/ion_beam_emitter/ion_beam_emitter.rules>/Part/Stats/CrewRequired"; With = 2}
+	{Action = AddBase; AddBaseTo = "<ships/terran/ion_beam_emitter/ion_beam_emitter.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/ion_beam_emitter.rules>}
+
+	// Medium Cannon - Requires 1 crew
+	{Action = Remove; Remove = "<ships/terran/cannon_med/cannon_med.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/cannon_med/cannon_med.rules>/Part/Stats/CrewRequired"; With = 1}
+	{Action = AddBase; AddBaseTo = "<ships/terran/cannon_med/cannon_med.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/cannon_med.rules>}
+
+	// Large Cannon - Requires 2 crew
+	{Action = Remove; Remove = "<ships/terran/cannon_large/cannon_large.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/cannon_large/cannon_large.rules>/Part/Stats/CrewRequired"; With = 2}
+	{Action = AddBase; AddBaseTo = "<ships/terran/cannon_large/cannon_large.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/cannon_large.rules>}
+
+	// Deck Cannon - Requires 4 crew
+	{Action = Remove; Remove = "<ships/terran/cannon_deck/cannon_deck.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/cannon_deck/cannon_deck.rules>/Part/Stats/CrewRequired"; With = 4}
+	{Action = AddBase; AddBaseTo = "<ships/terran/cannon_deck/cannon_deck.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/cannon_deck.rules>}
+
+	// Missile Launcher - Requires 2 crew
+	{Action = Remove; Remove = "<ships/terran/missile_launcher/missile_launcher.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/missile_launcher/missile_launcher.rules>/Part/Stats/CrewRequired"; With = 2}
+	{Action = AddBase; AddBaseTo = "<ships/terran/missile_launcher/missile_launcher.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/missile_launcher.rules>}
+
+	// Railgun Loader - Requires 2 crew
+	{Action = Remove; Remove = "<ships/terran/railgun_loader/railgun_loader.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/railgun_loader/railgun_loader.rules>/Part/Stats/CrewRequired"; With = 2}
+	{Action = AddBase; AddBaseTo = "<ships/terran/railgun_loader/railgun_loader.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/railgun_loader.rules>}
+
+	// Large Flak Cannon - Requires 3 crew
+	{Action = Remove; Remove = "<ships/terran/flak_cannon_large/flak_cannon_large.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/flak_cannon_large/flak_cannon_large.rules>/Part/Stats/CrewRequired"; With = 3}
+	{Action = AddBase; AddBaseTo = "<ships/terran/flak_cannon_large/flak_cannon_large.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/flak_cannon_large.rules>}
+
+	// Chaingun - Requires 3 crew
+	{Action = Remove; Remove = "<ships/terran/chaingun/chaingun.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/chaingun/chaingun.rules>/Part/Stats/CrewRequired"; With = 3}
+	{Action = AddBase; AddBaseTo = "<ships/terran/chaingun/chaingun.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/chaingun.rules>}
+
+	// Small Control Room - Requires 1 crew
+	{Action = Remove; Remove = "<ships/terran/control_room_small/control_room_small.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/control_room_small/control_room_small.rules>/Part/Stats/CrewRequired"; With = 1}
+	{Action = AddBase; AddBaseTo = "<ships/terran/control_room_small/control_room_small.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/control_room_small.rules>}
+
+	// Medium Control Room - Requires 3 crew
+	{Action = Remove; Remove = "<ships/terran/control_room_med/control_room_med.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/control_room_med/control_room_med.rules>/Part/Stats/CrewRequired"; With = 3}
+	{Action = AddBase; AddBaseTo = "<ships/terran/control_room_med/control_room_med.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/control_room_med.rules>}
+
+	// Large Control Room - Requires 7 crew
+	{Action = Remove; Remove = "<ships/terran/control_room_large/control_room_large.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/control_room_large/control_room_large.rules>/Part/Stats/CrewRequired"; With = 7}
+	{Action = AddBase; AddBaseTo = "<ships/terran/control_room_large/control_room_large.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/control_room_large.rules>}
+
+	// Engine Room - Requires 2 crew
+	{Action = Remove; Remove = "<ships/terran/engine_room/engine_room.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/engine_room/engine_room.rules>/Part/Stats/CrewRequired"; With = 2}
+	{Action = AddBase; AddBaseTo = "<ships/terran/engine_room/engine_room.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/engine_room.rules>}
+
+	// Small Mining Laser - Requires 1 crew
+	{Action = Remove; Remove = "<ships/terran/mining_laser_small/mining_laser_small.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/mining_laser_small/mining_laser_small.rules>/Part/Stats/CrewRequired"; With = 1}
+	{Action = AddBase; AddBaseTo = "<ships/terran/mining_laser_small/mining_laser_small.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/mining_laser_small.rules>}
+
+	// Manipulator Beam (Resource Collector) - Special case with multiple crew components
+	{Action = Remove; Remove = "<ships/terran/manipulator_beam_emitter/manipulator_beam_emitter.rules>/Part/Components/PartCrew1"}
+	{Action = Remove; Remove = "<ships/terran/manipulator_beam_emitter/manipulator_beam_emitter.rules>/Part/Components/PartCrew2"}
+	{Action = Remove; Remove = "<ships/terran/manipulator_beam_emitter/manipulator_beam_emitter.rules>/Part/Components/PartCrew3"}
+	{Action = Remove; Remove = "<ships/terran/manipulator_beam_emitter/manipulator_beam_emitter.rules>/Part/Components/PartCrew4"}
+	{Action = AddBase; AddBaseTo = "<ships/terran/manipulator_beam_emitter/manipulator_beam_emitter.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/resource_collector.rules>}
+	{Action = Add; AddTo = "<ships/terran/manipulator_beam_emitter/manipulator_beam_emitter.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{Action = AddMany; AddTo = "<ships/terran/manipulator_beam_emitter/manipulator_beam_emitter.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew1, PartCrew2, PartCrew3, PartCrew4]}
+
+	// Tractor Beam Emitter - Requires 4 crew
+	{Action = Remove; Remove = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Stats/CrewRequired"; With = 4}
+	{Action = AddBase; AddBaseTo = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/tractor_beam_emitter.rules>}
+
+	// Sensor Array - Requires 4 crew
+	{Action = Remove; Remove = "<ships/terran/sensor_array/sensor_array.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/sensor_array/sensor_array.rules>/Part/Stats/CrewRequired"; With = 4}
+	{Action = AddBase; AddBaseTo = "<ships/terran/sensor_array/sensor_array.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/sensor_array.rules>}
+
+	// Hyperdrive Beacon - Requires 6 crew
+	{Action = Remove; Remove = "<ships/terran/hyperdrive_beacon/hyperdrive_beacon.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<ships/terran/hyperdrive_beacon/hyperdrive_beacon.rules>/Part/Stats/CrewRequired"; With = 6}
+	{Action = AddBase; AddBaseTo = "<ships/terran/hyperdrive_beacon/hyperdrive_beacon.rules>/Part/Components"; BaseToAdd = &<automation_components_vanilla/hyperdrive_beacon.rules>}
+
+	// -----------------------------------------------------
+	// MODULAR MISSILES MOD COMPATIBILITY
+	// Only applies if the Modular Missiles mod is installed
+	// -----------------------------------------------------
+	
+	// Modular Mine Loader - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2886141879/parts/modular_mine_loader/modular_mine_loader.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2886141879/parts/modular_mine_loader/modular_mine_loader.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2886141879/parts/modular_mine_loader/modular_mine_loader.rules>/Part/Components"; BaseToAdd = &<automation_components_modular_missiles/modular_mine_loader.rules>}
+
+	// Modular Missile Loader - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2886141879/parts/modular_missile_loader/modular_missile_loader.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2886141879/parts/modular_missile_loader/modular_missile_loader.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2886141879/parts/modular_missile_loader/modular_missile_loader.rules>/Part/Components"; BaseToAdd = &<automation_components_modular_missiles/modular_missile_loader.rules>}
+
+	// -----------------------------------------------------
+	// LASER EMPORIUM MOD COMPATIBILITY
+	// Only applies if the Laser Emporium mod is installed
+	// -----------------------------------------------------
+	
+	// Basic Laser - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser1/LEBasiclaser.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser1/LEBasiclaser.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser1/LEBasiclaser.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/LEBasiclaser.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser1/LEBasiclaser.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser1/LEBasiclaser.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Pike Beam - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Beam1_long/pike.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Beam1_long/pike.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Beam1_long/pike.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/pike.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Beam1_long/pike.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Beam1_long/pike.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Behemoth Deck Battery - Requires 8 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Deck_Battery_Behemeth/deck_battery_behemeth.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Deck_Battery_Behemeth/deck_battery_behemeth.rules>/Part/Stats/CrewRequired"; With = 8}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Deck_Battery_Behemeth/deck_battery_behemeth.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/deck_battery_behemeth.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Deck_Battery_Behemeth/deck_battery_behemeth.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Deck_Battery_Behemeth/deck_battery_behemeth.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Laser3 Burst Laser Mk1 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser3/burst2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser3/burst2.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser3/burst2.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/burst2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser3/burst2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser3/burst2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Laser4 Burst Laser Mk2 - Requires 3 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser4/burst3.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser4/burst3.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser4/burst3.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/burst3.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser4/burst3.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Laser4/burst3.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Ion Barrage - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Ion2/ionbarrage1.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Ion2/ionbarrage1.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Ion2/ionbarrage1.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/ionbarrage1.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Ion2/ionbarrage1.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Ion2/ionbarrage1.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Energy1 Blast - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Energy1/energy1.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Energy1/energy1.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Energy1/energy1.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/energy1.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Energy1/energy1.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Energy1/energy1.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Energy2 Blast - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Energy2/energy2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Energy2/energy2.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Energy2/energy2.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/energy2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Energy2/energy2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Energy2/energy2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Bomb2 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Bomb2/Bomb2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Bomb2/Bomb2.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Bomb2/Bomb2.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/bomb2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Bomb2/Bomb2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Bomb2/Bomb2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Missile1 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Missiles1/missile1.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Missiles1/missile1.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Missiles1/missile1.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/missile1.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Missiles1/missile1.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/Missiles1/missile1.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Scatter Heavy - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/ScatterHeavy/heavyscatter.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/ScatterHeavy/heavyscatter.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/ScatterHeavy/heavyscatter.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/heavyscatter.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/ScatterHeavy/heavyscatter.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/ScatterHeavy/heavyscatter.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Planet Cracker - Requires 3 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/BeamLarge/PlanetCracker.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/BeamLarge/PlanetCracker.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/BeamLarge/PlanetCracker.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/planetcracker.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/BeamLarge/PlanetCracker.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/BeamLarge/PlanetCracker.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Heavy Deck Battery - Requires 5 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/deck_Battery_Heavy/deck_battery_heavy.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/deck_Battery_Heavy/deck_battery_heavy.rules>/Part/Stats/CrewRequired"; With = 5}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/deck_Battery_Heavy/deck_battery_heavy.rules>/Part/Components"; BaseToAdd = &<automation_components_laser_emporium/deck_battery_heavy.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/deck_Battery_Heavy/deck_battery_heavy.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3311709315/Parts/Weapons/Cruiser_Weapons/deck_Battery_Heavy/deck_battery_heavy.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// -----------------------------------------------------
+	// GENERAL MUNITIONS MOD COMPATIBILITY
+	// -----------------------------------------------------
+
+	// Twin Machine Gun - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/TwinMachinegun/twin_machinegun.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/TwinMachinegun/twin_machinegun.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/TwinMachinegun/twin_machinegun.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/twin_machinegun.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/TwinMachinegun/twin_machinegun.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/TwinMachinegun/twin_machinegun.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Quad Machine Gun (DualMachinegun file) - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DualMachinegun/dual_machinegun.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DualMachinegun/dual_machinegun.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DualMachinegun/dual_machinegun.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/dual_machinegun.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DualMachinegun/dual_machinegun.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DualMachinegun/dual_machinegun.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Deck Mortar - Requires 4 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DeckMortar/deck_mortar.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DeckMortar/deck_mortar.rules>/Part/Stats/CrewRequired"; With = 4}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DeckMortar/deck_mortar.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/deck_mortar.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DeckMortar/deck_mortar.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DeckMortar/deck_mortar.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Deck Artillery - Requires 4 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DeckArtillery/deck_artillery.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DeckArtillery/deck_artillery.rules>/Part/Stats/CrewRequired"; With = 4}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DeckArtillery/deck_artillery.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/deck_artillery.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DeckArtillery/deck_artillery.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/DeckArtillery/deck_artillery.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Rifle Small - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/riflesmall.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Rifle Small Variant 2 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall2.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall2.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/riflesmall2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Rifle Small Variant 3 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall3.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall3.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall3.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/riflesmall3.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall3.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RifleSmall/riflesmall3.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Grenade Bunk - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/grenadebunk.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Grenade Bunk Variant 2 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk2.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk2.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/grenadebunk2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Machinegun Small - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/machinegunsmall.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Machinegun Small Variant 2 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall2.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall2.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/machinegunsmall2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Machinegun Small Variant 3 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall3.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall3.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall3.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/machinegunsmall3.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall3.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/MachinegunSmall/machinegunsmall3.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Machine Gun - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Machinegun/machinegun.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Machinegun/machinegun.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Machinegun/machinegun.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/machinegun.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Machinegun/machinegun.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Machinegun/machinegun.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Machine Gun Variant 2 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Machinegun/machinegun2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Machinegun/machinegun2.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Machinegun/machinegun2.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/machinegun2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Machinegun/machinegun2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Machinegun/machinegun2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Autocannon - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Autocannon/autocannon.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Autocannon/autocannon.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Autocannon/autocannon.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/autocannon.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Autocannon/autocannon.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Autocannon/autocannon.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Roof Cannon - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RoofCannon/roofcannon.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RoofCannon/roofcannon.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RoofCannon/roofcannon.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/roofcannon.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RoofCannon/roofcannon.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RoofCannon/roofcannon.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Roof Cannon Variant 2 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RoofCannon/roofcannon2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RoofCannon/roofcannon2.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RoofCannon/roofcannon2.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/roofcannon2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RoofCannon/roofcannon2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RoofCannon/roofcannon2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Flamethrower - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Flamethrower/flamethrower.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Flamethrower/flamethrower.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Flamethrower/flamethrower.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/flamethrower.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Flamethrower/flamethrower.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/Flamethrower/flamethrower.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Radio Operator - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RadioOperator/radio.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RadioOperator/radio.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RadioOperator/radio.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/radio.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RadioOperator/radio.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/RadioOperator/radio.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	
+
+	// Roof Grenade Bunk - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk3.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk3.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk3.rules>/Part/Components"; BaseToAdd = &<automation_components_general_munitions/roof_grenadebunk.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk3.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3472566018/Parts/Weapons/GrenadeBunk/grenadebunk3.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// -----------------------------------------------------
+	// SUNFLOWER MOD COMPATIBILITY
+	// Only applies if the Sunflower mod is installed
+	// -----------------------------------------------------
+
+	// Galvanic Armor - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components"; BaseToAdd = &<automation_components_sunflower/galvanic_armor.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2995534359/parts/galvanic_armor/galvanic_armor.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Ion Blaster - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components"; BaseToAdd = &<automation_components_sunflower/ion_blaster.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2995534359/parts/ion_blaster/ion_blaster.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Euphorbia - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2995534359/parts/euphorbia/euphorbia.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2995534359/parts/euphorbia/euphorbia.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/euphorbia/euphorbia.rules>/Part/Components"; BaseToAdd = &<automation_components_sunflower/euphorbia.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2995534359/parts/euphorbia/euphorbia.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2995534359/parts/euphorbia/euphorbia.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Heavy Ion Blaster - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Components"; BaseToAdd = &<automation_components_sunflower/heavy_ion_blaster.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2995534359/parts/heavy_ion_blaster/heavy_ion_blaster.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Arc Emitter - Requires 4 crew
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2995534359/parts/arc_emitter/arc_emitter.rules>/Part/Stats/CrewRequired"; With = 4}
+
+	// Arc Transformer - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2995534359/parts/arc_transformer/arc_transformer.rules>/Part/Stats/CrewRequired"; With = 1}
+
+	// -----------------------------------------------------
+	// STAR FORGE THRUSTERS MOD COMPATIBILITY
+	// Only applies if the Star Forge Thrusters mod is installed
+	// -----------------------------------------------------
+
+	// 1x3 Booster - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2979863452/Boosters/1x3 Booster/1x3_Booster.txt>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2979863452/Boosters/1x3 Booster/1x3_Booster.txt>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2979863452/Boosters/1x3 Booster/1x3_Booster.txt>/Part/Components"; BaseToAdd = &<automation_components_starforge/1x3_Booster.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2979863452/Boosters/1x3 Booster/1x3_Booster.txt>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2979863452/Boosters/1x3 Booster/1x3_Booster.txt>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// 2x2 Booster - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2979863452/Boosters/2x2 Booster/2x2_Booster.txt>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2979863452/Boosters/2x2 Booster/2x2_Booster.txt>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2979863452/Boosters/2x2 Booster/2x2_Booster.txt>/Part/Components"; BaseToAdd = &<automation_components_starforge/2x2_Booster.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2979863452/Boosters/2x2 Booster/2x2_Booster.txt>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2979863452/Boosters/2x2 Booster/2x2_Booster.txt>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// -----------------------------------------------------
+	// ST-AFA Federation MOD COMPATIBILITY
+	// Only applies if the ST-AFA - Federation mod is installed
+	// -----------------------------------------------------
+
+	// Captain's Room - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_captains_room.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Phaserbank Controller - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_phaserbank_controller.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	// {IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Railgun Loader - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/railgun_loader.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Phaser Cannon Deck - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_phaser_cannon_deck.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Phaser Point Defense - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_phaser_point_defense.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// -----------------------------------------------------
+	// ST-AFA Federation MOD COMPATIBILITY (continued)
+	// -----------------------------------------------------
+
+	// Dual Phaser Cannon - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_dual_phaser_cannon.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Torpedo Launcher - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_torpedo_launcher.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Torpedo Launcher Deck - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_torpedo_launcher_deck.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Torpedo Launcher AI - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_torpedo_launcher_ai.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// ST-AFA Federation Engines & Warp Nacelles Compatibility
+
+	// Impulse Engine 3x2 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_impulse_3x2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Impulse Engine 4x2 - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_impulse_4x2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Impulse Engine 6x3 - Requires 3 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_impulse_6x3.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// ST-AFA Federation Warp Nacelles Compatibility
+
+	// Warp Nacelle 1x6 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_1x6.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Warp Nacelle 1x9 - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_1x9.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Warp Nacelle 2x6 - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_2x6.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Warp Nacelle 2x9 - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_2x9.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Warp Nacelle 3x6 - Requires 3 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_3x6.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Warp Nacelle 3x9 - Requires 3 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_3x9.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// ST-AFA Federation Warp Cores Compatibility
+
+	// Warp Core Small - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpcore_small.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Warp Core Medium - Requires 3 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpcore_med.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Warp Core Large - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpcore_large.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// Shield Core - Requires 4 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Stats/CrewRequired"; With = 4}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_shieldcore.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// -----------------------------------------------------
+	// MOD COMPATIBILITY - GENERAL MUNITIONS (3472566018)
+	// -----------------------------------------------------
+
+	// -----------------------------------------------------
+	// MOD COMPATIBILITY - STARFORGE (LASER EMPORIUM - 2903704804)
+	// -----------------------------------------------------
+
+	// Starforge - Interior Fighter Cockpit
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../2903704804/Control Rooms/Military Class/Interior/Interior Fighter Cockpit/Interior_Fighter_Cockpit.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../2903704804/Control Rooms/Military Class/Interior/Interior Fighter Cockpit/Interior_Fighter_Cockpit.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Interior Fighter Cockpit/Interior_Fighter_Cockpit.rules>/Part/Components"; BaseToAdd = &<automation_components_starforge/star_forge_interior_fighter_cockpit.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Interior Fighter Cockpit/Interior_Fighter_Cockpit.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Interior Fighter Cockpit/Interior_Fighter_Cockpit.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Interior Fighter Cockpit/Interior_Fighter_Cockpit.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Starforge - Frigate Bridge
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../2903704804/Control Rooms/Military Class/Interior/Frigate Bridge/Frigate_Bridge.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../2903704804/Control Rooms/Military Class/Interior/Frigate Bridge/Frigate_Bridge.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Frigate Bridge/Frigate_Bridge.rules>/Part/Components"; BaseToAdd = &<automation_components_starforge/star_forge_interior_frigate_bridge.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Frigate Bridge/Frigate_Bridge.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Frigate Bridge/Frigate_Bridge.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Frigate Bridge/Frigate_Bridge.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Starforge - Dreadnought Bridge
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../2903704804/Control Rooms/Military Class/Interior/Dreadnought Bridge/Dreadnought_Bridge.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../2903704804/Control Rooms/Military Class/Interior/Dreadnought Bridge/Dreadnought_Bridge.rules>/Part/Stats/CrewRequired"; With = 17}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Dreadnought Bridge/Dreadnought_Bridge.rules>/Part/Components"; BaseToAdd = &<automation_components_starforge/star_forge_interior_dreadnought_bridge.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Dreadnought Bridge/Dreadnought_Bridge.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Dreadnought Bridge/Dreadnought_Bridge.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Dreadnought Bridge/Dreadnought_Bridge.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Starforge - Destroyer Bridge
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../2903704804/Control Rooms/Military Class/Interior/Destroyer Bridge/Destroyer_Bridge.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../2903704804/Control Rooms/Military Class/Interior/Destroyer Bridge/Destroyer_Bridge.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Destroyer Bridge/Destroyer_Bridge.rules>/Part/Components"; BaseToAdd = &<automation_components_starforge/star_forge_interior_destroyer_bridge.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Destroyer Bridge/Destroyer_Bridge.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Destroyer Bridge/Destroyer_Bridge.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Destroyer Bridge/Destroyer_Bridge.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Starforge - Cruiser Bridge
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../2903704804/Control Rooms/Military Class/Interior/Cruiser Bridge/Cruiser_Bridge.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../2903704804/Control Rooms/Military Class/Interior/Cruiser Bridge/Cruiser_Bridge.rules>/Part/Stats/CrewRequired"; With = 6}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Cruiser Bridge/Cruiser_Bridge.rules>/Part/Components"; BaseToAdd = &<automation_components_starforge/star_forge_interior_cruiser_bridge.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Cruiser Bridge/Cruiser_Bridge.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Cruiser Bridge/Cruiser_Bridge.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Cruiser Bridge/Cruiser_Bridge.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Starforge - Command Bridge
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../2903704804/Control Rooms/Military Class/Interior/Command Bridge/Command_Bridge.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../2903704804/Control Rooms/Military Class/Interior/Command Bridge/Command_Bridge.rules>/Part/Stats/CrewRequired"; With = 5}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Command Bridge/Command_Bridge.rules>/Part/Components"; BaseToAdd = &<automation_components_starforge/star_forge_interior_commandship_bridge.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Command Bridge/Command_Bridge.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Command Bridge/Command_Bridge.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Command Bridge/Command_Bridge.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Starforge - Battleship Bridge
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../2903704804/Control Rooms/Military Class/Interior/Battleship Bridge/Battleship_Bridge.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../2903704804/Control Rooms/Military Class/Interior/Battleship Bridge/Battleship_Bridge.rules>/Part/Stats/CrewRequired"; With = 16}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Battleship Bridge/Battleship_Bridge.rules>/Part/Components"; BaseToAdd = &<automation_components_starforge/star_forge_interior_battleship_bridge.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Battleship Bridge/Battleship_Bridge.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Battleship Bridge/Battleship_Bridge.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../2903704804/Control Rooms/Military Class/Interior/Battleship Bridge/Battleship_Bridge.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// -----------------------------------------------------
+	// GALACTIC ALLEGIANCE MOD COMPATIBILITY
+	// -----------------------------------------------------
+
+	// Cannon Gauss - Requires 2+1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/cannon_gauss/cannon_gauss.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/cannon_gauss/cannon_gauss.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/cannon_gauss/cannon_gauss.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/cannon_gauss.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/cannon_gauss/cannon_gauss.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/cannon_gauss/cannon_gauss.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/cannon_gauss/cannon_gauss.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Rocket Turret Small - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_small/rocket_turret_small.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_small/rocket_turret_small.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_small/rocket_turret_small.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/rocket_turret_small.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_small/rocket_turret_small.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_small/rocket_turret_small.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_small/rocket_turret_small.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Rocket Turret Medium - Requires 3 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_medium/rocket_turret_medium.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_medium/rocket_turret_medium.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_medium/rocket_turret_medium.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/rocket_turret_medium.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_medium/rocket_turret_medium.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_medium/rocket_turret_medium.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_turret_medium/rocket_turret_medium.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Rocket Silo - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo/rocket_silo.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo/rocket_silo.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo/rocket_silo.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/rocket_silo.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo/rocket_silo.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo/rocket_silo.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo/rocket_silo.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Rocket Silo Heavy - Requires 3 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo_heavy/rocket_silo_heavy.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo_heavy/rocket_silo_heavy.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo_heavy/rocket_silo_heavy.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/rocket_silo_heavy.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo_heavy/rocket_silo_heavy.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo_heavy/rocket_silo_heavy.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/rocket_silo_heavy/rocket_silo_heavy.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Missile Silo - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/missile_silo/missile_silo.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/missile_silo/missile_silo.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/missile_silo/missile_silo.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/missile_silo.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/missile_silo/missile_silo.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/missile_silo/missile_silo.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/missile_silo/missile_silo.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Particle Cannon Small - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_small/particle_cannon_loader.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_small/particle_cannon_loader.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_small/particle_cannon_loader.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/particle_cannon_small.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_small/particle_cannon_loader.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_small/particle_cannon_loader.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_small/particle_cannon_loader.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+		// Particle Cannon Large - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_large/particle_cannon_loader/particle_cannon_loader.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_large/particle_cannon_loader/particle_cannon_loader.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_large/particle_cannon_loader/particle_cannon_loader.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/particle_cannon_large.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_large/particle_cannon_loader/particle_cannon_loader.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	// {IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_large/particle_cannon_loader/particle_cannon_loader.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/particle_cannon_large/particle_cannon_loader/particle_cannon_loader.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+	
+	// Light Gun Turret - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/light_gun_turret/light_gun_turret.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/light_gun_turret/light_gun_turret.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/light_gun_turret/light_gun_turret.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/light_gun_turret.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/light_gun_turret/light_gun_turret.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/light_gun_turret/light_gun_turret.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Projectile_Weapons/light_gun_turret/light_gun_turret.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Fighter Turret - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/fighter_turret/fighter_turret.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/fighter_turret/fighter_turret.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/fighter_turret/fighter_turret.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/fighter_turret.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/fighter_turret/fighter_turret.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/fighter_turret/fighter_turret.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/fighter_turret/fighter_turret.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Medium Turret - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/med_turret/med_turret.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/med_turret/med_turret.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/med_turret/med_turret.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/med_turret.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/med_turret/med_turret.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/med_turret/med_turret.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/med_turret/med_turret.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Machine Gun Heavy Dual - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy_dual/machine_gun_heavy_dual.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy_dual/machine_gun_heavy_dual.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy_dual/machine_gun_heavy_dual.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/machine_gun_heavy_dual.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy_dual/machine_gun_heavy_dual.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy_dual/machine_gun_heavy_dual.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy_dual/machine_gun_heavy_dual.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Machine Gun Heavy - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy/machine_gun_heavy.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy/machine_gun_heavy.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy/machine_gun_heavy.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/machine_gun_heavy.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy/machine_gun_heavy.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy/machine_gun_heavy.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/machine_gun_heavy/machine_gun_heavy.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Large Turret - Requires 3 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/large_turret/large_turret.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/large_turret/large_turret.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/large_turret/large_turret.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/large_turret.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/large_turret/large_turret.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/large_turret/large_turret.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/large_turret/large_turret.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Command Booster - Requires 1 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Flight/command_booster/command_booster.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Flight/command_booster/command_booster.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Flight/command_booster/command_booster.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/command_booster.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Flight/command_booster/command_booster.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Flight/command_booster/command_booster.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Flight/command_booster/command_booster.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Capital Turret - Requires 4 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/capital_turret/capital_turret.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/capital_turret/capital_turret.rules>/Part/Stats/CrewRequired"; With = 4}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/capital_turret/capital_turret.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/capital_turret.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/capital_turret/capital_turret.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/capital_turret/capital_turret.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/capital_turret/capital_turret.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+	// Assault Cannon - Requires 3 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/Components"; BaseToAdd = &<automation_components_galactic_allegiance/assault_cannon.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+// ... existing code ...
+]
+

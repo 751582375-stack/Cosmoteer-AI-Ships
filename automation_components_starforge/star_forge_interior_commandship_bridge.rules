@@ -1,0 +1,171 @@
+// Star Forge Commandship Bridge Automation Component
+// Allows the commandship bridge to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, PartCrewMinusThree, PartCrewMinusFour, NeedsCrewMinusFive]
+	Mode = Any
+}
+
+// --- Buff Level Toggles ---
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1
+}
+
+NeedsCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+	MaxBuffValue = 2
+}
+
+NeedsCrewMinusThree
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 3
+	MaxBuffValue = 3
+}
+
+NeedsCrewMinusFour
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 4
+	MaxBuffValue = 4
+}
+
+NeedsCrewMinusFive
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 5
+}
+
+// --- Gate for Standard Crew (5 crew) ---
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo, NeedsCrewMinusThree, NeedsCrewMinusFour, NeedsCrewMinusFive]
+	Mode = Any
+	Invert = True
+}
+
+// --- Crew Configurations ---
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 5
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[5, 3.8],
+		[3, 2.3],
+		[7, 2.3],
+		[3, 5.7],
+		[7, 5.7]
+	]
+	CrewLocations
+	[
+		CrewLocation1,
+		CrewLocation2,
+		CrewLocation3,
+		CrewLocation4,
+		CrewLocation5
+	]
+}
+
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 4
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[5, 3.8],
+		[3, 2.3],
+		[7, 2.3],
+		[3, 5.7]
+	]
+	CrewLocations
+	[
+		CrewLocation1,
+		CrewLocation2,
+		CrewLocation3,
+		CrewLocation4
+	]
+}
+
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwo]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[5, 3.8],
+		[3, 2.3],
+		[7, 2.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1,
+		CrewLocation2,
+		CrewLocation3
+	]
+}
+
+PartCrewMinusThree
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusThree]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[5, 3.8],
+		[3, 2.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1,
+		CrewLocation2
+	]
+}
+
+PartCrewMinusFour
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFour]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[5, 3.8]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+	]
+}
+
+// Crew locations
+CrewLocation1 { Type = CrewLocation; Location = [5, 3.8] }
+CrewLocation2 { Type = CrewLocation; Location = [3, 2.3] }
+CrewLocation3 { Type = CrewLocation; Location = [7, 2.3] }
+CrewLocation4 { Type = CrewLocation; Location = [3, 5.7] }
+CrewLocation5 { Type = CrewLocation; Location = [7, 5.7] } 

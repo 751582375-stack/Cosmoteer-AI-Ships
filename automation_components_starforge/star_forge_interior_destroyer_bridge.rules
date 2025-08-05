@@ -1,0 +1,105 @@
+// Star Forge Destroyer Bridge Automation Component
+// Allows the destroyer bridge to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, NeedsCrewMinusThree]
+	Mode = Any
+}
+
+// --- Buff Level Toggles ---
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1
+}
+
+NeedsCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+	MaxBuffValue = 2
+}
+
+NeedsCrewMinusThree
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 3
+}
+
+// --- Gate for Standard Crew (3 crew) ---
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo, NeedsCrewMinusThree]
+	Mode = Any
+	Invert = True
+}
+
+// --- Crew Configurations ---
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[2, 1.5],
+		[0.75, 3.15],
+		[3.25, 3.15]
+	]
+	CrewLocations
+	[
+		CrewLocation1,
+		CrewLocation2,
+		CrewLocation3
+	]
+}
+
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[2, 1.5],
+		[0.75, 3.15]
+	]
+	CrewLocations
+	[
+		CrewLocation1,
+		CrewLocation2
+	]
+}
+
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwo]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[2, 1.5]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+	]
+}
+
+// Crew locations
+CrewLocation1 { Type = CrewLocation; Location = [2, 1.5] }
+CrewLocation2 { Type = CrewLocation; Location = [0.75, 3.15] }
+CrewLocation3 { Type = CrewLocation; Location = [3.25, 3.15] } 

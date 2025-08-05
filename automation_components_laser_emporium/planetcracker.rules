@@ -1,0 +1,105 @@
+// Planet Cracker (Laser Emporium) Automation Component
+// Allows the Planet Cracker beam to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, PartCrewMinusThree]
+	Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo, PartCrewMinusThree]
+	Mode = Any
+	Invert = True
+}
+
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1
+}
+
+NeedsCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+	MaxBuffValue = 2
+}
+
+// Requires 3 crew when no AI buff
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	CrewDestinations
+	[
+		[1.79, 4.8]
+		[1.2, 4.8]
+		[1.49, 0.85]
+	]
+	CrewLocations
+	[
+		CrewLocation
+		CrewLocation1
+		CrewLocation2
+	]
+}
+
+// Requires 2 crew when AI buff =1
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.79, 4.8]
+		[1.2, 4.8]
+	]
+	CrewLocations
+	[
+		CrewLocation
+		CrewLocation1
+	]
+}
+
+// Requires 1 crew when AI buff =2
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwo]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.79, 4.8]
+	]
+	CrewLocations
+	[
+		CrewLocation
+	]
+}
+
+// No crew needed when AI buff >=3
+PartCrewMinusThree
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 3
+}
+
+// Crew locations from original part
+CrewLocation { Type = CrewLocation; Location = [1.79, 4.8] }
+CrewLocation1 { Type = CrewLocation; Location = [1.2, 4.8] }
+CrewLocation2 { Type = CrewLocation; Location = [1.49, 0.85] } 

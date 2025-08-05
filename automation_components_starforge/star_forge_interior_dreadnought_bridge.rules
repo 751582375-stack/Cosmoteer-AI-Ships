@@ -1,0 +1,261 @@
+// Star Forge Dreadnought Bridge Automation Component
+// Allows the dreadnought bridge to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [
+		PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, PartCrewMinusThree, 
+		PartCrewMinusFour, PartCrewMinusFive, PartCrewMinusSix, PartCrewMinusSeven, 
+		PartCrewMinusEight, PartCrewMinusNine, PartCrewMinusTen, PartCrewMinusEleven, 
+		PartCrewMinusTwelve, PartCrewMinusThirteen, PartCrewMinusFourteen, PartCrewMinusFifteen, 
+		PartCrewMinusSixteen, NeedsCrewMinusSeventeen
+	]
+	Mode = Any
+}
+
+// --- Buff Level Toggles ---
+NeedsCrewMinusOne { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 1; MaxBuffValue = 1; }
+NeedsCrewMinusTwo { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 2; MaxBuffValue = 2; }
+NeedsCrewMinusThree { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 3; MaxBuffValue = 3; }
+NeedsCrewMinusFour { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 4; MaxBuffValue = 4; }
+NeedsCrewMinusFive { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 5; MaxBuffValue = 5; }
+NeedsCrewMinusSix { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 6; MaxBuffValue = 6; }
+NeedsCrewMinusSeven { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 7; MaxBuffValue = 7; }
+NeedsCrewMinusEight { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 8; MaxBuffValue = 8; }
+NeedsCrewMinusNine { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 9; MaxBuffValue = 9; }
+NeedsCrewMinusTen { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 10; MaxBuffValue = 10; }
+NeedsCrewMinusEleven { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 11; MaxBuffValue = 11; }
+NeedsCrewMinusTwelve { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 12; MaxBuffValue = 12; }
+NeedsCrewMinusThirteen { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 13; MaxBuffValue = 13; }
+NeedsCrewMinusFourteen { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 14; MaxBuffValue = 14; }
+NeedsCrewMinusFifteen { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 15; MaxBuffValue = 15; }
+NeedsCrewMinusSixteen { Type = BuffToggle; BuffType = Aredja2AITerminal; MinBuffValue = 16; MaxBuffValue = 16; }
+NeedsCrewMinusSeventeen
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 17
+}
+
+// --- Gate for Standard Crew (17 crew) ---
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [
+		NeedsCrewMinusOne, NeedsCrewMinusTwo, NeedsCrewMinusThree, NeedsCrewMinusFour, 
+		NeedsCrewMinusFive, NeedsCrewMinusSix, NeedsCrewMinusSeven, NeedsCrewMinusEight, 
+		NeedsCrewMinusNine, NeedsCrewMinusTen, NeedsCrewMinusEleven, NeedsCrewMinusTwelve, 
+		NeedsCrewMinusThirteen, NeedsCrewMinusFourteen, NeedsCrewMinusFifteen, NeedsCrewMinusSixteen, 
+		NeedsCrewMinusSeventeen
+	]
+	Mode = Any
+	Invert = True
+}
+
+// --- Crew Configurations ---
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 17
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7], [1.7, 9], [8.3, 9], [1.7, 11.5], [8.3, 11.5], [2.5, 13.3], [7.5, 13.3], [4.2, 6.2], [5.8, 6.2], [5.8, 8.8], [4.2, 8.8]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12, CrewLocation13, CrewLocation14, CrewLocation15, CrewLocation16, CrewLocation17]
+}
+
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 16
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7], [1.7, 9], [8.3, 9], [1.7, 11.5], [8.3, 11.5], [2.5, 13.3], [7.5, 13.3], [4.2, 6.2], [5.8, 6.2], [5.8, 8.8]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12, CrewLocation13, CrewLocation14, CrewLocation15, CrewLocation16]
+}
+
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 15
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwo]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7], [1.7, 9], [8.3, 9], [1.7, 11.5], [8.3, 11.5], [2.5, 13.3], [7.5, 13.3], [4.2, 6.2], [5.8, 6.2]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12, CrewLocation13, CrewLocation14, CrewLocation15]
+}
+
+PartCrewMinusThree
+{
+	Type = PartCrew
+	Crew = 14
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusThree]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7], [1.7, 9], [8.3, 9], [1.7, 11.5], [8.3, 11.5], [2.5, 13.3], [7.5, 13.3], [4.2, 6.2]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12, CrewLocation13, CrewLocation14]
+}
+
+PartCrewMinusFour
+{
+	Type = PartCrew
+	Crew = 13
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFour]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7], [1.7, 9], [8.3, 9], [1.7, 11.5], [8.3, 11.5], [2.5, 13.3], [7.5, 13.3]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12, CrewLocation13]
+}
+
+PartCrewMinusFive
+{
+	Type = PartCrew
+	Crew = 12
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFive]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7], [1.7, 9], [8.3, 9], [1.7, 11.5], [8.3, 11.5], [2.5, 13.3]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12]
+}
+
+PartCrewMinusSix
+{
+	Type = PartCrew
+	Crew = 11
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusSix]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7], [1.7, 9], [8.3, 9], [1.7, 11.5], [8.3, 11.5]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, CrewLocation9, CrewLocation10, CrewLocation11]
+}
+
+PartCrewMinusSeven
+{
+	Type = PartCrew
+	Crew = 10
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusSeven]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7], [1.7, 9], [8.3, 9], [1.7, 11.5]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, CrewLocation9, CrewLocation10]
+}
+
+PartCrewMinusEight
+{
+	Type = PartCrew
+	Crew = 9
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusEight]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7], [1.7, 9], [8.3, 9]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, CrewLocation9]
+}
+
+PartCrewMinusNine
+{
+	Type = PartCrew
+	Crew = 8
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNine]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7], [1.7, 9]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8]
+}
+
+PartCrewMinusTen
+{
+	Type = PartCrew
+	Crew = 7
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTen]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7], [8.3, 7]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6, CrewLocation7]
+}
+
+PartCrewMinusEleven
+{
+	Type = PartCrew
+	Crew = 6
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusEleven]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5], [1.7, 7]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5, CrewLocation6]
+}
+
+PartCrewMinusTwelve
+{
+	Type = PartCrew
+	Crew = 5
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwelve]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5], [8.3, 4.5]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, CrewLocation5]
+}
+
+PartCrewMinusThirteen
+{
+	Type = PartCrew
+	Crew = 4
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusThirteen]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7], [1.7, 4.5]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4]
+}
+
+PartCrewMinusFourteen
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFourteen]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7], [7.5, 2.7]]
+	CrewLocations = [CrewLocation1, CrewLocation2, CrewLocation3]
+}
+
+PartCrewMinusFifteen
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFifteen]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2], [2.5, 2.7]]
+	CrewLocations = [CrewLocation1, CrewLocation2]
+}
+
+PartCrewMinusSixteen
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusSixteen]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations = [[5, 2]]
+	CrewLocations = [CrewLocation1]
+}
+
+// Crew locations (from original part, all 17 defined)
+CrewLocation1 { Type = CrewLocation; Location = [5, 2] }
+CrewLocation2 { Type = CrewLocation; Location = [2.5, 2.7] }
+CrewLocation3 { Type = CrewLocation; Location = [7.5, 2.7] }
+CrewLocation4 { Type = CrewLocation; Location = [1.7, 4.5] }
+CrewLocation5 { Type = CrewLocation; Location = [8.3, 4.5] }
+CrewLocation6 { Type = CrewLocation; Location = [1.7, 7] }
+CrewLocation7 { Type = CrewLocation; Location = [8.3, 7] }
+CrewLocation8 { Type = CrewLocation; Location = [1.7, 9] }
+CrewLocation9 { Type = CrewLocation; Location = [8.3, 9] }
+CrewLocation10 { Type = CrewLocation; Location = [1.7, 11.5] }
+CrewLocation11 { Type = CrewLocation; Location = [8.3, 11.5] }
+CrewLocation12 { Type = CrewLocation; Location = [2.5, 13.3] }
+CrewLocation13 { Type = CrewLocation; Location = [7.5, 13.3] }
+CrewLocation14 { Type = CrewLocation; Location = [4.2, 6.2] }
+CrewLocation15 { Type = CrewLocation; Location = [5.8, 6.2] }
+CrewLocation16 { Type = CrewLocation; Location = [5.8, 8.8] }
+CrewLocation17 { Type = CrewLocation; Location = [4.2, 8.8] } 

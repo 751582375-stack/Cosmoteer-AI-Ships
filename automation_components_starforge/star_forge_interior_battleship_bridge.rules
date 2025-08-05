@@ -1,0 +1,489 @@
+// Star Forge Battleship Bridge Automation Component
+// Allows the battleship bridge to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, PartCrewMinusThree, PartCrewMinusFour, PartCrewMinusFive, PartCrewMinusSix, PartCrewMinusSeven, PartCrewMinusEight, PartCrewMinusNine, PartCrewMinusTen, PartCrewMinusEleven, PartCrewMinusTwelve, PartCrewMinusThirteen, PartCrewMinusFourteen, PartCrewMinusFifteen, NeedsCrewMinusSixteen]
+	Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo, NeedsCrewMinusThree, NeedsCrewMinusFour, NeedsCrewMinusFive, NeedsCrewMinusSix, NeedsCrewMinusSeven, NeedsCrewMinusEight, NeedsCrewMinusNine, NeedsCrewMinusTen, NeedsCrewMinusEleven, NeedsCrewMinusTwelve, NeedsCrewMinusThirteen, NeedsCrewMinusFourteen, NeedsCrewMinusFifteen, NeedsCrewMinusSixteen]
+	Mode = Any
+	Invert = True
+}
+
+NeedsCrewMinusOne // AI Buff is 1
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1
+}
+
+NeedsCrewMinusTwo // AI Buff is 2
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+	MaxBuffValue = 2
+}
+
+NeedsCrewMinusThree // AI Buff is 3
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 3
+	MaxBuffValue = 3
+}
+
+NeedsCrewMinusFour // AI Buff is 4
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 4
+	MaxBuffValue = 4
+}
+
+NeedsCrewMinusFive // AI Buff is 5
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 5
+	MaxBuffValue = 5
+}
+
+NeedsCrewMinusSix // AI Buff is 6
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 6
+	MaxBuffValue = 6
+}
+
+NeedsCrewMinusSeven // AI Buff is 7
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 7
+	MaxBuffValue = 7
+}
+
+NeedsCrewMinusEight // AI Buff is 8
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 8
+	MaxBuffValue = 8
+}
+
+NeedsCrewMinusNine // AI Buff is 9
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 9
+	MaxBuffValue = 9
+}
+
+NeedsCrewMinusTen // AI Buff is 10
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 10
+	MaxBuffValue = 10
+}
+
+NeedsCrewMinusEleven // AI Buff is 11
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 11
+	MaxBuffValue = 11
+}
+
+NeedsCrewMinusTwelve // AI Buff is 12
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 12
+	MaxBuffValue = 12
+}
+
+NeedsCrewMinusThirteen // AI Buff is 13
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 13
+	MaxBuffValue = 13
+}
+
+NeedsCrewMinusFourteen // AI Buff is 14
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 14
+	MaxBuffValue = 14
+}
+
+NeedsCrewMinusFifteen // AI Buff is 15
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 15
+	MaxBuffValue = 15
+}
+
+NeedsCrewMinusSixteen // AI Buff is 16 or more (0 Crew)
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 16
+}
+
+// Requires 16 crew when no AI buff
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 16
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5], 
+		[0.9, 0.8], [2.3, 0.8], [3.7, 0.8], [5.1, 0.8], [0.8, 2.6], 
+		[0.8, 4.3], [0.9, 9.1], [5.2, 2.6], [5.2, 4.3], [5, 9.1]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, 
+		CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12, 
+		CrewLocation13, CrewLocation14, CrewLocation15, CrewLocation16
+	]
+}
+
+// Requires 15 crew when AI buff is 1
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 15
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5], 
+		[0.9, 0.8], [2.3, 0.8], [3.7, 0.8], [5.1, 0.8], [0.8, 2.6], 
+		[0.8, 4.3], [0.9, 9.1], [5.2, 2.6], [5.2, 4.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, 
+		CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12, 
+		CrewLocation13, CrewLocation14, CrewLocation15
+	]
+}
+
+// Requires 14 crew when AI buff is 2
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 14
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwo]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5], 
+		[0.9, 0.8], [2.3, 0.8], [3.7, 0.8], [5.1, 0.8], [0.8, 2.6], 
+		[0.8, 4.3], [0.9, 9.1], [5.2, 2.6]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, 
+		CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12, 
+		CrewLocation13, CrewLocation14
+	]
+}
+
+// Requires 13 crew when AI buff is 3
+PartCrewMinusThree
+{
+	Type = PartCrew
+	Crew = 13
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusThree]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5], 
+		[0.9, 0.8], [2.3, 0.8], [3.7, 0.8], [5.1, 0.8], [0.8, 2.6], 
+		[0.8, 4.3], [0.9, 9.1]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, 
+		CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12, 
+		CrewLocation13
+	]
+}
+
+// Requires 12 crew when AI buff is 4
+PartCrewMinusFour
+{
+	Type = PartCrew
+	Crew = 12
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFour]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5], 
+		[0.9, 0.8], [2.3, 0.8], [3.7, 0.8], [5.1, 0.8], [0.8, 2.6], 
+		[0.8, 4.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, 
+		CrewLocation9, CrewLocation10, CrewLocation11, CrewLocation12
+	]
+}
+
+// Requires 11 crew when AI buff is 5
+PartCrewMinusFive
+{
+	Type = PartCrew
+	Crew = 11
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFive]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5], 
+		[0.9, 0.8], [2.3, 0.8], [3.7, 0.8], [5.1, 0.8], [0.8, 2.6]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, 
+		CrewLocation9, CrewLocation10, CrewLocation11
+	]
+}
+
+// Requires 10 crew when AI buff is 6
+PartCrewMinusSix
+{
+	Type = PartCrew
+	Crew = 10
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusSix]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5], 
+		[0.9, 0.8], [2.3, 0.8], [3.7, 0.8], [5.1, 0.8]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, 
+		CrewLocation9, CrewLocation10
+	]
+}
+
+// Requires 9 crew when AI buff is 7
+PartCrewMinusSeven
+{
+	Type = PartCrew
+	Crew = 9
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusSeven]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5], 
+		[0.9, 0.8], [2.3, 0.8], [3.7, 0.8]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8, 
+		CrewLocation9
+	]
+}
+
+// Requires 8 crew when AI buff is 8
+PartCrewMinusEight
+{
+	Type = PartCrew
+	Crew = 8
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusEight]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5], 
+		[0.9, 0.8], [2.3, 0.8]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6, CrewLocation7, CrewLocation8
+	]
+}
+
+// Requires 7 crew when AI buff is 9
+PartCrewMinusNine
+{
+	Type = PartCrew
+	Crew = 7
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNine]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5], 
+		[0.9, 0.8]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6, CrewLocation7
+	]
+}
+
+// Requires 6 crew when AI buff is 10
+PartCrewMinusTen
+{
+	Type = PartCrew
+	Crew = 6
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTen]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5], [3.8, 7.5]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5, CrewLocation6
+	]
+}
+
+// Requires 5 crew when AI buff is 11
+PartCrewMinusEleven
+{
+	Type = PartCrew
+	Crew = 5
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusEleven]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2], [2.2, 7.5]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4, 
+		CrewLocation5
+	]
+}
+
+// Requires 4 crew when AI buff is 12
+PartCrewMinusTwelve
+{
+	Type = PartCrew
+	Crew = 4
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwelve]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2], [3.5, 2.2]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3, CrewLocation4
+	]
+}
+
+// Requires 3 crew when AI buff is 13
+PartCrewMinusThirteen
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusThirteen]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8], [2.5, 2.2]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2, CrewLocation3
+	]
+}
+
+// Requires 2 crew when AI buff is 14
+PartCrewMinusFourteen
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFourteen]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4], [3, 5.8]
+	]
+	CrewLocations
+	[
+		CrewLocation1, CrewLocation2
+	]
+}
+
+// Requires 1 crew when AI buff is 15
+PartCrewMinusFifteen
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFifteen]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[3, 4]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+	]
+}
+
+// Crew locations (referenced by PartCrewMinusX components)
+CrewLocation1 { Type = CrewLocation; Location = [3, 4]; Rotation = 180d }
+CrewLocation2 { Type = CrewLocation; Location = [3, 5.8]; Rotation = 180d }
+CrewLocation3 { Type = CrewLocation; Location = [2.45, 2.2]; Rotation = 180d }
+CrewLocation4 { Type = CrewLocation; Location = [3.55, 2.2]; Rotation = 180d }
+CrewLocation5 { Type = CrewLocation; Location = [2.1, 7.6]; Rotation = -128d }
+CrewLocation6 { Type = CrewLocation; Location = [3.9, 7.6]; Rotation = 150d }
+CrewLocation7 { Type = CrewLocation; Location = [0.9, 0.8]; Rotation = 180d }
+CrewLocation8 { Type = CrewLocation; Location = [2.3, 0.8]; Rotation = 180d }
+CrewLocation9 { Type = CrewLocation; Location = [3.7, 0.8]; Rotation = 180d }
+CrewLocation10 { Type = CrewLocation; Location = [5.1, 0.8]; Rotation = 180d }
+CrewLocation11 { Type = CrewLocation; Location = [0.8, 2.6]; Rotation = 90d }
+CrewLocation12 { Type = CrewLocation; Location = [0.8, 4.3]; Rotation = 90d }
+CrewLocation13 { Type = CrewLocation; Location = [0.9, 9.1]; Rotation = 45d }
+CrewLocation14 { Type = CrewLocation; Location = [5.2, 2.6]; Rotation = -90d }
+CrewLocation15 { Type = CrewLocation; Location = [5.2, 4.3]; Rotation = -90d }
+CrewLocation16 { Type = CrewLocation; Location = [5, 9.1]; Rotation = -45d }

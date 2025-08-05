@@ -1,0 +1,47 @@
+// Star Forge Fighter Cockpit Automation Component
+// Allows the fighter cockpit to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, NeedsCrewMinusOne]
+	Mode = Any
+}
+
+// Active if NeedsCrewMinusOne (BuffToggle) is OFF (i.e. buff is 0)
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne]
+	Mode = Any
+	Invert = True
+}
+
+// Requires 1 crew when no AI buff (NeedsCrewMinusNone is ON)
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[.5, 1.1]
+	]
+	CrewLocations
+	[
+		CrewLocation
+	]
+}
+
+// Becomes 0 crew if AI buff >= 1 (this IS the trigger) - Renamed from PartCrewMinusOne
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+}
+
+// Crew location from original part
+CrewLocation { Type = CrewLocation; Location = [.5, 1.1] } 

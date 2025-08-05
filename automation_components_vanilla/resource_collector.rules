@@ -1,0 +1,394 @@
+// Resource Collector (Manipulator Beam) Automation Component
+// This is a special case that integrates with the manipulator beam emitter
+// Unlike most parts, the resource collector uses 4 separate crew positions that can each be automated independently
+// This uses a tiered system where AI cores progressively replace crew positions
+
+// AI core buff integration for resource collector (manipulator beam emitter)
+// Define the crew locations for the 4 crew positions
+CrewLocation1
+{
+    Type = CrewLocation
+    Location = [41/64, 41/64]
+    Rotation = 135d
+}
+CrewLocation2
+{
+    Type = CrewLocation
+    Location = [87/64, 41/64]
+    Rotation = -135d
+}
+CrewLocation3
+{
+    Type = CrewLocation
+    Location = [41/64, 87/64]
+    Rotation = 45d
+}
+CrewLocation4
+{
+    Type = CrewLocation
+    Location = [87/64, 87/64]
+    Rotation = -45d
+}
+
+// Main PartCrew component that selects the appropriate crew configuration
+PartCrew1
+{
+    Type = MultiToggle
+    Toggles = [PartCrew1None, PartCrew1Minus1, PartCrew1Minus2, PartCrew1Minus3, PartCrew1Minus4]
+    Mode = Any
+}
+PartCrew2
+{
+    Type = MultiToggle
+    Toggles = [PartCrew2None, PartCrew2Minus1, PartCrew2Minus2, PartCrew2Minus3, PartCrew2Minus4]
+    Mode = Any
+}
+PartCrew3
+{
+    Type = MultiToggle
+    Toggles = [PartCrew3None, PartCrew3Minus1, PartCrew3Minus2, PartCrew3Minus3, PartCrew3Minus4]
+    Mode = Any
+}
+PartCrew4
+{
+    Type = MultiToggle
+    Toggles = [PartCrew4None, PartCrew4Minus1, PartCrew4Minus2, PartCrew4Minus3, PartCrew4Minus4]
+    Mode = Any
+}
+
+// Beam 1 automation components
+NeedsCrew1None
+{
+    Type = MultiToggle
+    Toggles = [NeedsCrew1One, NeedsCrew1Two, NeedsCrew1Three, NeedsCrew1Four]
+    Mode = Any
+    Invert = true
+}
+PartCrew1None
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/PriorityUtility_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, PartCrew1Prereq, NeedsCrew1None]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations [ &../../CrewLocation1/Location ]
+    CrewLocations [ CrewLocation1 ]
+    OverridePriorityKey = PartCrew
+}
+
+NeedsCrew1One
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 1
+}
+PartCrew1Minus1
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 1
+}
+
+NeedsCrew1Two
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 2
+}
+PartCrew1Minus2
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 2
+}
+
+NeedsCrew1Three
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 3
+}
+PartCrew1Minus3
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 3
+}
+
+NeedsCrew1Four
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 4
+}
+PartCrew1Minus4
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 4
+}
+
+// Beam 2 automation components
+NeedsCrew2None
+{
+    Type = MultiToggle
+    Toggles = [NeedsCrew2One, NeedsCrew2Two, NeedsCrew2Three, NeedsCrew2Four]
+    Mode = Any
+    Invert = true
+}
+PartCrew2None
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/PriorityUtility_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, PartCrew2Prereq, NeedsCrew2None]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations [ &../../CrewLocation2/Location ]
+    CrewLocations [ CrewLocation2 ]
+    OverridePriorityKey = PartCrew
+}
+
+NeedsCrew2One
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 1
+    MaxBuffValue = 1
+}
+PartCrew2Minus1
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/PriorityUtility_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, PartCrew2Prereq, NeedsCrew2One]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations [ &../../CrewLocation2/Location ]
+    CrewLocations [ CrewLocation2 ]
+    OverridePriorityKey = PartCrew
+}
+
+NeedsCrew2Two
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 2
+}
+PartCrew2Minus2
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 2
+}
+
+NeedsCrew2Three
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 3
+}
+PartCrew2Minus3
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 3
+}
+
+NeedsCrew2Four
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 4
+}
+PartCrew2Minus4
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 4
+}
+
+// Beam 3 automation components  
+NeedsCrew3None
+{
+    Type = MultiToggle
+    Toggles = [NeedsCrew3One, NeedsCrew3Two, NeedsCrew3Three, NeedsCrew3Four]
+    Mode = Any
+    Invert = true
+}
+PartCrew3None
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/PriorityUtility_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, PartCrew3Prereq, NeedsCrew3None]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations [ &../../CrewLocation3/Location ]
+    CrewLocations [ CrewLocation3 ]
+    OverridePriorityKey = PartCrew
+}
+
+NeedsCrew3One
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 1
+    MaxBuffValue = 1
+}
+PartCrew3Minus1
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/PriorityUtility_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, PartCrew3Prereq, NeedsCrew3One]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations [ &../../CrewLocation3/Location ]
+    CrewLocations [ CrewLocation3 ]
+    OverridePriorityKey = PartCrew
+}
+
+NeedsCrew3Two
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 2
+    MaxBuffValue = 2
+}
+PartCrew3Minus2
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/PriorityUtility_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, PartCrew3Prereq, NeedsCrew3Two]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations [ &../../CrewLocation3/Location ]
+    CrewLocations [ CrewLocation3 ]
+    OverridePriorityKey = PartCrew
+}
+
+NeedsCrew3Three
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 3
+}
+PartCrew3Minus3
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 3
+}
+
+NeedsCrew3Four
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 4
+}
+PartCrew3Minus4
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 4
+}
+
+// Beam 4 automation components
+NeedsCrew4None
+{
+    Type = MultiToggle
+    Toggles = [NeedsCrew4One, NeedsCrew4Two, NeedsCrew4Three, NeedsCrew4Four]
+    Mode = Any
+    Invert = true
+}
+PartCrew4None
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/PriorityUtility_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, PartCrew4Prereq, NeedsCrew4None]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations [ &../../CrewLocation4/Location ]
+    CrewLocations [ CrewLocation4 ]
+    OverridePriorityKey = PartCrew
+}
+
+NeedsCrew4One
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 1
+    MaxBuffValue = 1
+}
+PartCrew4Minus1
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/PriorityUtility_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, PartCrew4Prereq, NeedsCrew4One]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations [ &../../CrewLocation4/Location ]
+    CrewLocations [ CrewLocation4 ]
+    OverridePriorityKey = PartCrew
+}
+
+NeedsCrew4Two
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 2
+    MaxBuffValue = 2
+}
+PartCrew4Minus2
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/PriorityUtility_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, PartCrew4Prereq, NeedsCrew4Two]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations [ &../../CrewLocation4/Location ]
+    CrewLocations [ CrewLocation4 ]
+    OverridePriorityKey = PartCrew
+}
+
+NeedsCrew4Three
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 3
+    MaxBuffValue = 3
+}
+PartCrew4Minus3
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/PriorityUtility_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, PartCrew4Prereq, NeedsCrew4Three]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations [ &../../CrewLocation4/Location ]
+    CrewLocations [ CrewLocation4 ]
+    OverridePriorityKey = PartCrew
+}
+
+NeedsCrew4Four
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 4
+}
+PartCrew4Minus4
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 4
+}
+
+// Provide the AI core buff area
+// The resource collector itself can provide AI buffs to nearby components
+// This allows cascading automation effects through multiple collectors
+BuffProvider
+{
+    Type = AreaBuffProvider
+    BuffAmount = 100%
+    BuffType = Aredja2AITerminal
+    BuffArea = [-2, -2, 4, 4]
+    OperationalToggle = IsOperational
+    ChainsFromBuffType = Aredja2AITerminal
+} 

@@ -1,0 +1,36 @@
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne]
+	Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusOne]
+	Mode = Any
+	Invert = true
+}
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [CombinedAmmo]
+	CrewDestinations
+	[
+		[1.375, 1.25]
+	]
+	CrewLocations
+	[
+		CrewLocation
+	]
+}
+
+PartCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+}

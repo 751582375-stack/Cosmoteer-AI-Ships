@@ -1,0 +1,84 @@
+// Federation Warpnacelle 1x6 Automation Component
+// Allows the Federation Warpnacelle 1x6 to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, NeedsCrewMinusOne]
+	Mode = Any
+}
+
+// --- Buff Level Toggles ---
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+}
+
+// --- Gate for Standard Crew (1 crew) ---
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne]
+	Mode = Any
+	Invert = True
+}
+
+// --- Crew Configurations ---
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[0.6, 0.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+	]
+}
+
+// No crew needed when AI buff >= 1
+PartCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+}
+
+// Crew location from original part
+CrewLocation1 { Type = CrewLocation; Location = [0.6, 0.6]; Rotation = 180d }
+
+// Ensure PowerToggle is defined or handled if it's not a standard component field
+// If PowerToggle is part of the original part's components, this should work.
+// Otherwise, it might need to be defined or removed from PrerequisitesBeforeCrewing.
+
+/*
+// ... existing code ...
+IsOperational
+{
+	Type = MultiToggle
+	Toggles = [PowerToggle, BuffToggle] // Assuming BuffToggle for AI control
+	Mode = All
+}
+
+BuffToggle // This is a generic BuffToggle, ensure it's correctly defined for AI
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1 // Part is operational if AI power is at least 1
+}
+
+PowerToggle // Assuming this is standard
+{
+	Type = PowerToggle
+}
+*/
+// It seems the original file might be simpler, let's stick to the core AI automation logic
+// based on General Munitions and remove the IsOperational block unless confirmed necessary.
+// The key is to replace the original PartCrew component. 

@@ -1,0 +1,36 @@
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne]
+	Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusOne]
+	Mode = Any
+	Invert = True
+}
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &<./Data/ships/base_ship.rules>/DefaultSalvagePriority
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[1, 0.68]
+	]
+	CrewLocations
+	[
+		CrewLocation
+	]
+}
+
+PartCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+}

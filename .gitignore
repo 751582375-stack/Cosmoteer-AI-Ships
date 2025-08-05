@@ -1,0 +1,28 @@
+# Cosmoteer Mod .gitignore
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Log files
+*.log
+
+# Cache files
+*.cache
+
+# Build artifacts
+build/
+dist/ 

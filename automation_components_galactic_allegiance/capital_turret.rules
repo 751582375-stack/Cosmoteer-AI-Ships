@@ -1,0 +1,147 @@
+// Capital Turret (Galactic Allegiance) Automation Component
+// Allows the capital turret to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, PartCrewMinusThree, PartCrewMinusFour]
+	Mode = Any
+}
+
+// This toggle is TRUE if AI buff is 0
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [Buff_Is_1, Buff_Is_2, Buff_Is_3, Buff_Is_4_Or_More] // References the specific buff level toggles
+	Mode = Any
+	Invert = True
+}
+
+// --- Buff Level Toggles ---
+Buff_Is_1
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1 // Active if buff is exactly 1
+}
+Buff_Is_2
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+	MaxBuffValue = 2 // Active if buff is exactly 2
+}
+Buff_Is_3
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 3
+	MaxBuffValue = 3 // Active if buff is exactly 3
+}
+// This IS PartCrewMinusFour
+Buff_Is_4_Or_More
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 4 // Active if buff is 4 or more
+}
+
+
+// --- PartCrew Components for each AI Buff Level ---
+
+// Standard crew component - requires 4 crew when AI buff is 0
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 4
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone] // Gated by AI buff being 0
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[1.265625, 1.828125],
+		[2.734375, 1.828125],
+		[0.52, 0.48],
+		[3.48, 0.48]
+	]
+	CrewLocations
+	[
+		CrewLocation1,
+		CrewLocation2,
+		CrewLocation3,
+		CrewLocation4
+	]
+}
+
+// Requires 3 crew when AI buff of 1 is present
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, Buff_Is_1] // Gated by AI buff being 1
+	OverridePriorityKey = PartCrewMinusNone
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[1.265625, 1.828125],
+		[2.734375, 1.828125],
+		[0.52, 0.48]
+	]
+	CrewLocations
+	[
+		CrewLocation1,
+		CrewLocation2,
+		CrewLocation3
+	]
+}
+
+// Requires 2 crew when AI buff of 2 is present
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, Buff_Is_2] // Gated by AI buff being 2
+	OverridePriorityKey = PartCrewMinusNone
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[1.265625, 1.828125],
+		[2.734375, 1.828125]
+	]
+	CrewLocations
+	[
+		CrewLocation1,
+		CrewLocation2
+	]
+}
+
+// Requires 1 crew when AI buff of 3 is present
+PartCrewMinusThree
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, Buff_Is_3] // Gated by AI buff being 3
+	OverridePriorityKey = PartCrewMinusNone
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[1.265625, 1.828125]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+	]
+}
+
+// No crew needed when AI buff of 4 or higher. This component IS the Buff_Is_4_Or_More toggle.
+PartCrewMinusFour : &Buff_Is_4_Or_More {}
+
+// Crew locations
+CrewLocation1 { Type = CrewLocation; Location = [1.265625, 1.828125] }
+CrewLocation2 { Type = CrewLocation; Location = [2.734375, 1.828125] }
+CrewLocation3 { Type = CrewLocation; Location = [0.52, 0.48] }
+CrewLocation4 { Type = CrewLocation; Location = [3.48, 0.48] } 

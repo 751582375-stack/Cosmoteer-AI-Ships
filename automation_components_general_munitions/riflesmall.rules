@@ -1,0 +1,46 @@
+// Rifle Small (General Munitions) Automation Component
+// Allows the rifle small to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne]
+	Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusOne]
+	Mode = Any
+	Invert = True
+}
+
+// Requires 1 crew when no AI buff
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [CombinedAmmo]
+	CrewDestinations
+	[
+		[.5, 2.27]
+	]
+	CrewLocations
+	[
+		CrewLocation
+	]
+}
+
+// No crew needed when one or more AI buffs present
+PartCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+}
+
+// Crew location from original part definition
+CrewLocation { Type = CrewLocation; Location = [.5, 2.27] } 

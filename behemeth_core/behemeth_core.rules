@@ -1,0 +1,386 @@
+Part : <./Data/ships/terran/base_part_terran.rules>/Part
+{
+	NameKey = "Parts/Aredja2AIBehemethCore"
+	IconNameKey = "Parts/Aredja2AIBehemethCoreIcon"
+	DescriptionKey = "Parts/Aredja2AIBehemethCoreDesc"
+	ID = aredja.parts.ai_behemeth_core
+	EditorGroup = "Crew"
+	Resources
+	[
+		[steel, 480]
+		[coil2, 210]
+		[processor, 30]
+		[diamond, 18]
+	]
+	Size = [7, 7]
+	MaxHealth = 49000
+	TypeCategories = [command, uses_power, is_crewed]
+	ReceivableBuffs : ^/0/ReceivableBuffs []
+	IsRotateable = true
+	IsWalled = true
+	IsSelfDestructible = true
+	GeneratorRequiresDoor = false
+	ForceManhattanPathInPart = true
+	AllowedDoorLocations
+	[
+		[-1, 2]
+		[-1, 3]
+		[-1, 4]
+		[0, 7]
+		[1, 7]
+		[2, 7]
+		[3, 7]
+		[4, 7]
+		[5, 7]
+		[6, 7]
+		[7, 2]
+		[7, 3]
+		[7, 4]
+	]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 64]
+	}
+	Components : ^/0/Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, BatteryStorage, PartCrew]
+			Mode = All
+		}
+
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+			RequiresCommand = false
+		}
+
+		CommandConsumer
+		{
+			Type = CommandConsumer
+			OperationalToggle = PowerToggle
+			CommandPoints = 142
+		}
+
+		BatteryStorage
+		{
+			Type = ResourceStorage
+			ResourceType = battery
+			MaxResources = 24000
+			ReceiveResourceMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+
+		BatteryConsumer
+		{
+			Type = ResourceConsumer
+			ResourceType = battery
+			Storage = BatteryStorage
+			DefaultPriority = &/PRIORITIES/ControlRoom_Supply
+			ResupplyThreshold = 3000
+			OperationalToggle = PowerToggle
+		}
+
+		PowerDrain
+		{
+			Type = ResourceConverter
+			OperationalToggle = IsOperational
+			FromStorage = BatteryStorage
+			FromQuantity = 6000
+			MinFromQuantityForConversion = 1
+			Interval = 20
+		}
+
+		BuffProvider
+		{
+			Type = AreaBuffProvider
+			BuffType = Aredja2AITerminal
+			BuffArea = [-14, -14, 35, 35]
+			BuffAmount = 4
+			MaxBuffPerPart = 4
+			TotalBuffCap = 64
+			Criteria
+			{
+				Category = is_crewed
+			}
+			OperationalToggle = IsOperational
+			ChainsFromBuffType = Aredja2AITerminal
+		}
+
+		
+
+		CrewLocation1
+		{
+			Type = CrewLocation
+			Location = [1, 1]
+			Rotation = -45d
+		}
+		CrewLocation2
+		{
+			Type = CrewLocation
+			Location = [3, 1]
+			Rotation = -180d
+		}
+		CrewLocation3
+		{
+			Type = CrewLocation
+			Location = [5, 1]
+			Rotation = 65d
+		}
+		CrewLocation4
+		{
+			Type = CrewLocation
+			Location = [1, 3]
+			Rotation = -90d
+		}
+		CrewLocation5
+		{
+			Type = CrewLocation
+			Location = [3, 4]
+			Rotation = 0d
+		}
+		CrewLocation6
+		{
+			Type = CrewLocation
+			Location = [5, 3]
+			Rotation = -82d
+		}
+		CrewLocation7
+		{
+			Type = CrewLocation
+			Location = [1, 5]
+			Rotation = -135d
+		}
+		CrewLocation8
+		{
+			Type = CrewLocation
+			Location = [2.3, 3.65]
+			Rotation = 12d
+		}
+		CrewLocation9
+		{
+			Type = CrewLocation
+			Location = [5, 5]
+			Rotation = 135d
+		}
+		CrewLocation10
+		{
+			Type = CrewLocation
+			Location = [1.8, 2]
+			Rotation = 98d
+		}
+		CrewLocation11
+		{
+			Type = CrewLocation
+			Location = [4, 0.9]
+			Rotation = -180d
+		}
+		CrewLocation12
+		{
+			Type = CrewLocation
+			Location = [1, 4]
+			Rotation = -135d
+		}
+		CrewLocation13
+		{
+			Type = CrewLocation
+			Location = [4, 4]
+			Rotation = -20d
+		}
+		CrewLocation14
+		{
+			Type = CrewLocation
+			Location = [1.8, 3]
+			Rotation = 90d
+		}
+		CrewLocation15
+		{
+			Type = CrewLocation
+			Location = [5, 3.8]
+			Rotation = -45d
+		}
+		CrewLocation16
+		{
+			Type = CrewLocation
+			Location = [2, 1.2]
+			Rotation = 140d
+		}
+		
+		PartCrew
+		{
+			Type = PartCrew
+			Crew = 16
+			DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+			PrerequisitesBeforeCrewing = [PowerToggle]
+			HighPriorityPrerequisites = [BatteryStorage]
+			CrewDestinations
+			[
+				&../../CrewLocation1/Location
+				&../../CrewLocation2/Location
+				&../../CrewLocation3/Location
+				&../../CrewLocation4/Location
+				&../../CrewLocation5/Location
+				&../../CrewLocation6/Location
+				&../../CrewLocation7/Location
+				&../../CrewLocation8/Location
+				&../../CrewLocation9/Location
+				&../../CrewLocation10/Location
+				&../../CrewLocation11/Location
+				&../../CrewLocation12/Location
+				&../../CrewLocation13/Location
+				&../../CrewLocation14/Location
+				&../../CrewLocation15/Location
+				&../../CrewLocation16/Location
+			]
+			CrewLocations
+			[
+				CrewLocation1
+				CrewLocation2
+				CrewLocation3
+				CrewLocation4
+				CrewLocation5
+				CrewLocation6
+				CrewLocation7
+				CrewLocation8
+				CrewLocation9
+				CrewLocation10
+				CrewLocation11
+				CrewLocation12
+				CrewLocation13
+				CrewLocation14
+				CrewLocation15
+				CrewLocation16
+			]
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [3.5, 3.5]
+			OperationalToggle = IsOperational
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [7, 7]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						File = "floor_on.png"
+						NormalsFile = "floor_normal.png"
+						Size = [7, 7]
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						File = "floor_off.png"
+						NormalsFile = "floor_normal.png"
+						Size = [7, 7]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "./Data/ships/terran/control_room_large/walls.png"
+						Size = [7, 7]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						NormalsFile = "roof_normal.png"
+						Size = [7, 7]
+					}
+				]
+			}
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/BigPartDestroyed
+			Location = [3.5, 3.5]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [7, 7]
+		}
+
+		BatterySprites
+		{
+			Type = ResourceSprites
+			Location = [3.5, 3.5]
+			ResourceStorage = BatteryStorage
+			Layer = "doodads_high"
+			ResourceLevels
+			[
+				{
+					File = "batteries1.png"
+					NormalsFile = "floor_normal.png"
+					Size = [7, 7]
+				}
+				{
+					File = "batteries2.png"
+					NormalsFile = "floor_normal.png"
+					Size = [7, 7]
+				}
+				{
+					File = "batteries3.png"
+					NormalsFile = "floor_normal.png"
+					Size = [7, 7]
+				}
+				{
+					File = "batteries4.png"
+					NormalsFile = "floor_normal.png"
+					Size = [7, 7]
+				}
+			]
+		}
+	}
+
+	Stats
+	{
+		PowerUsageContinuousMinutes = (&~/Part/Components/PowerDrain/FromQuantity) / (&~/Part/Components/PowerDrain/Interval) / 1000 * 60
+		PowerCapacity = (&~/Part/Components/BatteryStorage/MaxResources) / 1000
+		RecPower = (&PowerUsageContinuousMinutes) / 60
+		RecCrew = (&RecPower) * 4
+		BuffRadius = 17
+		CrewRequired = &~/Part/Components/PartCrew/Crew
+		MaxBuffPerPart = &~/Part/Components/BuffProvider/MaxBuffPerPart
+		TotalMaxBuff = &~/Part/Components/BuffProvider/TotalBuffCap
+		Aredja2OperatingPower = &~/Part/Components/BuffProvider/BuffAmount
+	}
+}

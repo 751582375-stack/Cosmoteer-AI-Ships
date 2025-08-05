@@ -1,0 +1,19 @@
+/*
+AI Ships Mod - Compatibility Guide
+This guide explains how to make other mods or custom parts compatible with the AI Ships mod.
+The AI buff system allows ship components that normally require crew to be operated by nearby AI cores.
+*/
+
+Aephix's guide
+step 1: put the three actions in the mod.rules
+make sure the paths are right (there are usually 4)
+make sure the stat is replaced right
+there may be more than three (see resource collector)
+
+step 2: make the automation components
+copy an existing one that has the right number of crew
+copy the crew locations and prerequisites and priority from the part being modified
+if it says crewlocations = [&../../crewlocation1/location] that's no good, you have to use numbers
+
+!!REMEMBER!!
+when in doubt, copy something that you already know works

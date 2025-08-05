@@ -1,0 +1,53 @@
+// Basic Laser (Laser Emporium) Automation Component
+// This component allows the basic laser to work with AI cores
+// It replaces the standard crew requirement with AI-compatible logic
+
+// Main PartCrew component - either uses normal crew or AI buff
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne]
+	Mode = Any
+}
+
+// This toggle activates when no AI core buff is detected
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusOne]
+	Mode = Any
+	Invert = True
+}
+
+// Standard crew component used when no AI core is providing a buff
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[.5, .5]
+	]
+	CrewLocations
+	[
+		CrewLocation
+	]
+}
+
+// Buff detector - activates when an AI terminal buff is available
+// When activated, this component replaces the need for 1 crew member
+PartCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+}
+
+// Crew location
+CrewLocation
+{
+	Type = CrewLocation
+	Location = [.5, .5]
+} 

@@ -1,0 +1,81 @@
+// Large Laser Blaster Automation Component
+// This component allows the large laser blaster to work with AI cores
+// It can operate with 2, 1, or 0 crew members depending on AI core buffs
+
+// Main PartCrew component - determines which crew mode to use based on AI buffs
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo]
+	Mode = Any
+}
+
+// This toggle activates when no AI core buff is detected
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, PartCrewMinusTwo]
+	Mode = Any
+	Invert = True
+}
+
+// Standard crew component - requires 2 crew members when no AI is available
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[.65625, 4.27]
+		[1.34375, 4.27]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+	]
+}
+
+// This toggle activates when exactly 1 AI core buff is detected
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MaxBuffValue = 1
+	MinBuffValue = 1
+}
+
+// Hybrid crew component - requires 1 crew member and 1 AI core
+// The single crew member will move between positions to operate both stations
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [BatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[.65625, 4.27]
+		[1.34375, 4.27]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+// Fully automated mode - activates when at least 2 AI core buffs are detected
+// When activated, no crew members are required to operate this component
+PartCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+}

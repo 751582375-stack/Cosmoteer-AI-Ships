@@ -1,0 +1,76 @@
+// Federation Warpnacelle 2x6 Automation Component
+// Allows the Federation Warpnacelle 2x6 to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, NeedsCrewMinusTwo]
+	Mode = Any
+}
+
+// --- Buff Level Toggles ---
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1
+}
+
+NeedsCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+}
+
+// --- Gate for Standard Crew (2 crew) ---
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo]
+	Mode = Any
+	Invert = True
+}
+
+// --- Crew Configurations ---
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[0.6, 0.3],
+		[1.4, 0.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1,
+		CrewLocation2
+	]
+}
+
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [BatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[0.6, 0.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+	]
+}
+
+// Crew locations from original part
+CrewLocation1 { Type = CrewLocation; Location = [0.6, 0.6]; Rotation = 180d }
+CrewLocation2 { Type = CrewLocation; Location = [1.4, 0.6]; Rotation = 180d } 

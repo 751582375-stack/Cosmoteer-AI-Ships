@@ -1,0 +1,295 @@
+// Behemoth Deck Battery (Laser Emporium) Automation Component
+// This component allows the behemoth deck battery to work with AI cores
+// It replaces the standard crew requirement with AI-compatible logic
+
+// Main PartCrew component - allows different crew states based on AI buff
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, PartCrewMinusThree, PartCrewMinusFour, PartCrewMinusFive, PartCrewMinusSix, PartCrewMinusSeven, PartCrewMinusEight]
+	Mode = Any
+}
+
+// Used when no AI buff is present
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo, NeedsCrewMinusThree, NeedsCrewMinusFour, NeedsCrewMinusFive, NeedsCrewMinusSix, NeedsCrewMinusSeven, PartCrewMinusEight]
+	Mode = Any
+	Invert = True
+}
+
+// Buff detection sections for each crew reduction tier
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1
+}
+
+NeedsCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+	MaxBuffValue = 2
+}
+
+NeedsCrewMinusThree
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 3
+	MaxBuffValue = 3
+}
+
+NeedsCrewMinusFour
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 4
+	MaxBuffValue = 4
+}
+
+NeedsCrewMinusFive
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 5
+	MaxBuffValue = 5
+}
+
+NeedsCrewMinusSix
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 6
+	MaxBuffValue = 6
+}
+
+NeedsCrewMinusSeven
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 7
+	MaxBuffValue = 7
+}
+
+// Standard crew component - requires 8 crew when no AI buff is present
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 8
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [BatteryStorage, PowerToggle, NeedsCrewMinusNone]
+	CrewDestinations
+	[
+		[1.5, 2.0]
+		[4.5, 2.0]
+		[1.0, 1.0]
+		[5.0, 1.0]
+		[2, 3.5]
+		[4, 3.5]
+		[3, 5]
+		[3, 2]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+	]
+}
+
+// Requires 7 crew when AI buff of 1 is present
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 7
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [BatteryStorage, PowerToggle, NeedsCrewMinusOne]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.5, 2.0]
+		[4.5, 2.0]
+		[1.0, 1.0]
+		[5.0, 1.0]
+		[2, 3.5]
+		[4, 3.5]
+		[3, 5]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+// Requires 6 crew when AI buff of 2 is present
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 6
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [BatteryStorage, PowerToggle, NeedsCrewMinusTwo]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.5, 2.0]
+		[4.5, 2.0]
+		[1.0, 1.0]
+		[5.0, 1.0]
+		[2, 3.5]
+		[4, 3.5]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+	]
+}
+
+// Requires 5 crew when AI buff of 3 is present
+PartCrewMinusThree
+{
+	Type = PartCrew
+	Crew = 5
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [BatteryStorage, PowerToggle, NeedsCrewMinusThree]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.5, 2.0]
+		[4.5, 2.0]
+		[1.0, 1.0]
+		[5.0, 1.0]
+		[2, 3.5]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+	]
+}
+
+// Requires 4 crew when AI buff of 4 is present
+PartCrewMinusFour
+{
+	Type = PartCrew
+	Crew = 4
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [BatteryStorage, PowerToggle, NeedsCrewMinusFour]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.5, 2.0]
+		[4.5, 2.0]
+		[1.0, 1.0]
+		[5.0, 1.0]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+	]
+}
+
+// Requires 3 crew when AI buff of 5 is present
+PartCrewMinusFive
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [BatteryStorage, PowerToggle, NeedsCrewMinusFive]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.5, 2.0]
+		[4.5, 2.0]
+		[1.0, 1.0]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+	]
+}
+
+// Requires 2 crew when AI buff of 6 is present
+PartCrewMinusSix
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [BatteryStorage, PowerToggle, NeedsCrewMinusSix]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.5, 2.0]
+		[4.5, 2.0]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+	]
+}
+
+// Requires 1 crew when AI buff of 7 is present
+PartCrewMinusSeven
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [BatteryStorage, PowerToggle, NeedsCrewMinusSeven]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.5, 2.0]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+	]
+}
+
+// No crew needed when AI buff of 8 or higher is present
+PartCrewMinusEight
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 8
+}
+
+// Crew locations from the original part
+CrewLocation1 { Type = CrewLocation; Location = [1.5, 2.0] }
+CrewLocation2 { Type = CrewLocation; Location = [4.5, 2.0] }
+CrewLocation3 { Type = CrewLocation; Location = [1.0, 1.0] }
+CrewLocation4 { Type = CrewLocation; Location = [5.0, 1.0] }
+CrewLocation5 { Type = CrewLocation; Location = [2, 3.5] }
+CrewLocation6 { Type = CrewLocation; Location = [4, 3.5] }
+CrewLocation7 { Type = CrewLocation; Location = [3, 5] }
+CrewLocation8 { Type = CrewLocation; Location = [3, 2] } 

@@ -1,0 +1,75 @@
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo]
+	Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, PartCrewMinusTwo]
+	Mode = Any
+	Invert = True
+}
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/Thruster_Supply
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[0.4, 1.5]
+		[2.6, 1.5]
+		[1.5, 0.4]
+		[1.5, 2.6]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+	]
+}
+
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MaxBuffValue = 1
+	MinBuffValue = 1
+}
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Thruster_Supply
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [BatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[0.4, 1.5]
+		[2.6, 1.5]
+		[1.5, 0.4]
+		[1.5, 2.6]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+PartCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+}

@@ -1,0 +1,76 @@
+// ST-AFA Federation: Large Warpcore Automation Component
+// Allows the stafa.fed_warpcore_large part to work with AI cores
+
+PartCrew
+{
+    Type = MultiToggle
+    Toggles = [PartCrewMinusNone, PartCrewMinusOne, NeedsCrewMinusTwo]
+    Mode = Any
+}
+
+// --- Buff Level Toggles ---
+NeedsCrewMinusOne
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 1
+    MaxBuffValue = 1
+}
+
+NeedsCrewMinusTwo
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 2
+}
+
+// --- Gate for Standard Crew (2 crew) ---
+NeedsCrewMinusNone
+{
+    Type = MultiToggle
+    Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo]
+    Mode = Any
+    Invert = True
+}
+
+// --- Crew Configurations ---
+PartCrewMinusNone
+{
+    Type = PartCrew
+    Crew = 2
+    DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations
+    [
+        [4, 2.7]
+        [4, 5.2]
+    ]
+    CrewLocations
+    [
+        CrewLocation1
+        CrewLocation2
+    ]
+}
+
+PartCrewMinusOne
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+    HighPriorityPrerequisites = [BatteryStorage]
+    OverridePriorityKey = PartCrewMinusNone
+    CrewDestinations
+    [
+        [4, 2.7]
+    ]
+    CrewLocations
+    [
+        CrewLocation1
+    ]
+}
+
+// Crew locations from original part (corrected to match PartCrewMinusNone.CrewDestinations)
+CrewLocation1 { Type = CrewLocation; Location = [4, 2.7] }
+CrewLocation2 { Type = CrewLocation; Location = [4, 5.2] } 

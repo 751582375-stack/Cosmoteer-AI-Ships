@@ -1,0 +1,101 @@
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, PartCrewMinusThree]
+	Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo, PartCrewMinusThree]
+	Mode = Any
+	Invert = True
+}
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [AmmoPrereq]
+	CrewDestinations
+	[
+		[1.5, 4.001]
+		[.6, 5.4]
+		[2.4, 5.4]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+	]
+}
+
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MaxBuffValue = 1
+	MinBuffValue = 1
+}
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [AmmoPrereq]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.5, 4.001]
+		[.6, 5.4]
+		[2.4, 5.4]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+NeedsCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MaxBuffValue = 2
+	MinBuffValue = 2
+}
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwo]
+	HighPriorityPrerequisites = [AmmoPrereq]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[1.5, 4.001]
+		[.6, 5.4]
+		[2.4, 5.4]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+PartCrewMinusThree
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 3
+}

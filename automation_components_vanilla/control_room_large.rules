@@ -1,0 +1,277 @@
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, PartCrewMinusThree, PartCrewMinusFour, PartCrewMinusFive, PartCrewMinusSix, PartCrewMinusSeven]
+	Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo, NeedsCrewMinusThree, NeedsCrewMinusFour, NeedsCrewMinusFive, NeedsCrewMinusSix, PartCrewMinusSeven]
+	Mode = Any
+	Invert = True
+}
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 7
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[44/64, 77/64]
+		[212/64, 77/64]
+		[1.5, 95/64]
+		[2.5, 95/64]
+		[2, 2.5]
+		[.5+6/64, 3.5-6/64]
+		[3.5-6/64, 3.5-6/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+	]
+}
+
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MaxBuffValue = 1
+	MinBuffValue = 1
+}
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 6
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [BatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[44/64, 77/64]
+		[212/64, 77/64]
+		[1.5, 95/64]
+		[2.5, 95/64]
+		[2, 2.5]
+		[.5+6/64, 3.5-6/64]
+		[3.5-6/64, 3.5-6/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+NeedsCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MaxBuffValue = 2
+	MinBuffValue = 2
+}
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 5
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwo]
+	HighPriorityPrerequisites = [BatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[44/64, 77/64]
+		[212/64, 77/64]
+		[1.5, 95/64]
+		[2.5, 95/64]
+		[2, 2.5]
+		[.5+6/64, 3.5-6/64]
+		[3.5-6/64, 3.5-6/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+NeedsCrewMinusThree
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MaxBuffValue = 3
+	MinBuffValue = 3
+}
+PartCrewMinusThree
+{
+	Type = PartCrew
+	Crew = 4
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusThree]
+	HighPriorityPrerequisites = [BatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[44/64, 77/64]
+		[212/64, 77/64]
+		[1.5, 95/64]
+		[2.5, 95/64]
+		[2, 2.5]
+		[.5+6/64, 3.5-6/64]
+		[3.5-6/64, 3.5-6/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+NeedsCrewMinusFour
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MaxBuffValue = 4
+	MinBuffValue = 4
+}
+PartCrewMinusFour
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFour]
+	HighPriorityPrerequisites = [BatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[44/64, 77/64]
+		[212/64, 77/64]
+		[1.5, 95/64]
+		[2.5, 95/64]
+		[2, 2.5]
+		[.5+6/64, 3.5-6/64]
+		[3.5-6/64, 3.5-6/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+NeedsCrewMinusFive
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MaxBuffValue = 5
+	MinBuffValue = 5
+}
+PartCrewMinusFive
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFive]
+	HighPriorityPrerequisites = [BatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[44/64, 77/64]
+		[212/64, 77/64]
+		[1.5, 95/64]
+		[2.5, 95/64]
+		[2, 2.5]
+		[.5+6/64, 3.5-6/64]
+		[3.5-6/64, 3.5-6/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+NeedsCrewMinusSix
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MaxBuffValue = 6
+	MinBuffValue = 6
+}
+PartCrewMinusSix
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusSix]
+	HighPriorityPrerequisites = [BatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[44/64, 77/64]
+		[212/64, 77/64]
+		[1.5, 95/64]
+		[2.5, 95/64]
+		[2, 2.5]
+		[.5+6/64, 3.5-6/64]
+		[3.5-6/64, 3.5-6/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+PartCrewMinusSeven
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 7
+}

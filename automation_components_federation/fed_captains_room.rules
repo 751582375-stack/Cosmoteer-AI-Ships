@@ -1,0 +1,47 @@
+// ST-AFA Federation: Captain's Room Automation Component
+// Allows the fed_captains_room part to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, NeedsCrewMinusOne]
+	Mode = Any
+}
+
+// Active if NeedsCrewMinusOne (BuffToggle) is OFF (i.e. buff is 0)
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne]
+	Mode = Any
+	Invert = True
+}
+
+// Requires 1 crew when no AI buff (NeedsCrewMinusNone is ON)
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/CaptainsRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[1.95, 2.1]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+	]
+}
+
+// Becomes 0 crew if AI buff >= 1 (this IS the trigger)
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+}
+
+// Crew location from original part
+CrewLocation1 { Type = CrewLocation; Location = [1.95, 2.1] } 

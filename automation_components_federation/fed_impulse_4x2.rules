@@ -1,0 +1,85 @@
+// ST-AFA Federation: Impulse Engine 4x2 Automation Component
+// Allows the fed_impulse_4x2 part to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	// PartCrewMinusNone for 2 crew (buff 0)
+	// PartCrewMinusOne for 1 crew (buff 1)
+	// NeedsCrewMinusTwo for 0 crew (buff 2+)
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, NeedsCrewMinusTwo]
+	Mode = Any
+}
+
+// --- Buff Level Toggles ---
+// Active if buff is exactly 1 (for 1 crew)
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1
+}
+
+// Active if buff is 2 or more (for 0 crew)
+NeedsCrewMinusTwo // This was PartCrewMinusTwo originally, and is the 0-crew trigger
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+}
+
+// --- Gate for Standard Crew (2 crew) ---
+// Active if NO buff-specific toggles are ON (i.e. buff is 0)
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo]
+	Mode = Any
+	Invert = True
+}
+
+// --- Crew Configurations ---
+// Requires 2 crew when no AI buff (NeedsCrewMinusNone is ON)
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [BatteryStorage]
+	CrewDestinations
+	[
+		[0.5, 0.58]
+		[3.5, 0.58]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+	]
+}
+
+// Requires 1 crew when AI buff is 1 (NeedsCrewMinusOne is ON)
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [BatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[0.5, 0.58] // Use first destination
+	]
+	CrewLocations
+	[
+		CrewLocation1 // Use first location
+	]
+}
+// No PartCrew component for NeedsCrewMinusTwo, as it means 0 crew.
+
+// Crew locations from original part (referenced by PartCrew components above)
+CrewLocation1 { Type = CrewLocation; Location = [0.5, 0.58] }
+CrewLocation2 { Type = CrewLocation; Location = [3.5, 0.58] } 

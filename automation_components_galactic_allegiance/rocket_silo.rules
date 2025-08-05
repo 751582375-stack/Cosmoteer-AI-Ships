@@ -1,0 +1,46 @@
+// Galactic Allegiance Rocket Silo Automation Component
+// Allows the rocket_silo part to work with AI cores
+
+PartCrew
+{
+    Type = MultiToggle
+    Toggles = [PartCrewMinusNone, PartCrewMinusTwo]
+    Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+    Type = MultiToggle
+    Toggles = [PartCrewMinusTwo]
+    Mode = Any
+    Invert = True
+}
+
+// Requires 2 crew when no AI buff
+PartCrewMinusNone
+{
+    Type = PartCrew
+    Crew = 2
+    DefaultPriority = &/PRIORITIES/Weapon_Crew
+    PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+    HighPriorityPrerequisites = [RocketPrereqProxy]
+    CrewDestinations
+    [
+        [.5, 2.4375]
+    ]
+    CrewLocations
+    [
+        CrewLocation1
+    ]
+}
+
+// No crew needed when AI buff >=2
+PartCrewMinusTwo
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 2
+}
+
+// Crew locations from original part
+CrewLocation1 { Type = CrewLocation; Location = [.5, 2.4375] } 

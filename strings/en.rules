@@ -1,0 +1,24 @@
+Parts
+{
+	Aredja2AITerminal = "AI Core"
+	Aredja2AITerminalIcon = &Aredja2AITerminal
+	Aredja2AITerminalDesc = "Operates a nearby part, replacing one crewman. Multiple AI cores can work together for parts requiring more crew."
+	
+	Aredja2AILargeCore = "Advanced AI Core"
+	Aredja2AILargeCoreIcon = &Aredja2AILargeCore
+	Aredja2AILargeCoreDesc = "A large AI control center that operates nearby parts within a 3-tile radius. Provides four times the crew capability of a standard AI core and can chain with other AI cores for enhanced coverage."
+	
+	Aredja2AIBehemethCore = "Behemeth AI Core"
+	Aredja2AIBehemethCoreIcon = &Aredja2AIBehemethCore
+	Aredja2AIBehemethCoreDesc = "A massive AI control center that operates parts within a 17-tile radius. Provides exceptional crew replacement capabilities and can network with other AI cores for ultimate ship automation."
+}
+
+Stats
+{
+	Aredja2OperatingPower = "<white>Operating Range: </white><good>{0:0}</good> <gray>tiles</gray>"
+}
+
+BuildBox
+{
+	BuffAredja2AITerminal = "<good>+{0:0}</good>"
+}

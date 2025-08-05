@@ -1,0 +1,87 @@
+// ST-AFA Federation: Shield Core Automation Component
+// Allows the stafa.fed_shieldcore part to work with AI cores
+
+PartCrew
+{
+	Type = MultiToggle
+	// PartCrewMinusNone for 2 crew (buff 0)
+	// PartCrewMinusOne for 1 crew (buff 1)
+	// NeedsCrewMinusTwo for 0 crew (buff 2+)
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, NeedsCrewMinusTwo]
+	Mode = Any
+}
+
+// --- Buff Level Toggles ---
+// Active if buff is exactly 1 (for 1 crew)
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1
+}
+
+// Active if buff is 2 or more (for 0 crew)
+NeedsCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+}
+
+// --- Gate for Standard Crew (2 crew) ---
+// Active if NO buff-specific toggles are ON (i.e. buff is 0)
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo]
+	Mode = Any
+	Invert = True
+}
+
+// --- Crew Configurations ---
+// Requires 2 crew when no AI buff (NeedsCrewMinusNone is ON)
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew // Reverted from Defense_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [CombinedBatteryStorage] // Matches base part's storage
+	CrewDestinations // Using first two destinations from base part
+	[
+		[2, 0.6]
+		[2, 3.4]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+	]
+}
+
+// Requires 1 crew when AI buff is 1 (NeedsCrewMinusOne is ON)
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/ControlRoom_Crew // Reverted from Defense_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [CombinedBatteryStorage]
+	OverridePriorityKey = PartCrewMinusNone // So this takes over from the default
+	CrewDestinations // Using first destination
+	[
+		[2, 0.6]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+	]
+}
+// No PartCrew component for NeedsCrewMinusTwo, as it means 0 crew.
+
+// Crew locations from original part stafa.fed_shieldcore
+CrewLocation1 { Type = CrewLocation; Location = [2, 0.6] }
+CrewLocation2 { Type = CrewLocation; Location = [2, 3.4] }
+CrewLocation3 { Type = CrewLocation; Location = [0.6, 2] }
+CrewLocation4 { Type = CrewLocation; Location = [3.4, 2] } 
