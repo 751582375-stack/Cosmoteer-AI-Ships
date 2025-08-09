@@ -1,4 +1,7 @@
-Part : <./Data/ships/terran/base_part_terran.rules>/Part
+HEAT_TO_RESOURCE = &<./Data/statuses/heat/heat.rules>/STATUS_TO_RESOURCE_RATIO
+HEAT_TO_STATUS = &<./Data/statuses/heat/heat.rules>/RESOURCE_TO_STATUS_RATIO
+
+Part : <./Data/ships/terran/base_part_terran_overclock.rules>/Part
 {
 	NameKey = "Parts/Aredja2AILargeCore"
 	IconNameKey = "Parts/Aredja2AILargeCoreIcon"
@@ -15,7 +18,7 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 	Size = [4, 4]
 	MaxHealth = 16000
 	TypeCategories = [command, uses_power, is_crewed]
-	ReceivableBuffs : ^/0/ReceivableBuffs []
+    ReceivableBuffs : ^/0/ReceivableBuffs [ Overclock ]
 	IsRotateable = true
 	IsWalled = true
 	IsSelfDestructible = true
@@ -49,6 +52,19 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 			Toggles = [PowerToggle, BatteryStorage, PartCrew]
 			Mode = All
 		}
+
+        IsOperationalNonOverclocked
+        {
+            Type = MultiToggle
+            Toggles = [ IsOperational, { Toggle=OverclockModeToggle; Invert=true } ]
+            Mode = All
+        }
+        IsOperationalOverclocked
+        {
+            Type = MultiToggle
+            Toggles = [ IsOperational, OverclockModeToggle ]
+            Mode = All
+        }
 
 		PowerToggle
 		{
@@ -93,21 +109,26 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 			Interval = 30
 		}
 
-		BuffProvider
-		{
-			Type = AreaBuffProvider
-			BuffType = Aredja2AITerminal
-			BuffArea = [-6, -6, 16, 16]
-			BuffAmount = 2
-			MaxBuffPerPart = 2
-			TotalBuffCap = 32
-			Criteria
-			{
-				Category = is_crewed
-			}
-			OperationalToggle = IsOperational
-			ChainsFromBuffType = Aredja2AITerminal
-		}
+        BuffProvider
+        {
+            Type = AreaBuffProvider
+            BuffType = Aredja2AITerminal
+            BuffArea = [-6, -6, 16, 16]
+            BuffAmount = 2
+            MaxBuffPerPart = 2
+            TotalBuffCap = 32
+            Criteria { Category = is_crewed }
+            OperationalToggle = IsOperationalNonOverclocked
+            ChainsFromBuffType = Aredja2AITerminal
+        }
+
+        Overclock_BuffProvider : BuffProvider
+        {
+            BuffArea = [-9, -9, 22, 22]
+            MaxBuffPerPart = 4
+            TotalBuffCap = 48
+            OperationalToggle = IsOperationalOverclocked
+        }
 
 		CrewLocation1
 		{
@@ -267,6 +288,43 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 			Size = [4, 4]
 		}
 
+        // Overclock heat scaffolding for non-weapon part
+        
+
+        // Overclock state value is used by tooltips and optional expressions
+        OverclockStateValue
+        {
+            Type = ToggleValueSelector
+            Toggle = OverclockModeToggle
+            ToggleOffValue = Zero
+            ToggleOnValue = One
+        }
+        Zero { Type = StaticValue; Value = 0; }
+        One { Type = StaticValue; Value = 1; }
+
+        Overclock_ConstantHeatProducer
+        {
+            Type = ResourceConverter
+            OperationalToggle = IsOperationalOverclocked
+            HEAT_PER_INTERVAL = ceil((1600) * (&Interval))
+            ToQuantity = (&HEAT_PER_INTERVAL) * (&~/HEAT_TO_RESOURCE)
+            ToStorage = &~/Part/^/0/HEAT_TARGET_STORAGE
+            Interval = 0.5
+        }
+
+        PeakHeatGenerationValue
+        {
+            Type = StaticValue
+            Value = 1600 // simple constant heat stat display
+        }
+        HeatGenerationStatProvider
+        {
+            Type = StatProvider
+            Stat = HeatGeneration
+            OperationalToggle = OverclockModeToggle
+            ValueFrom = PeakHeatGenerationValue
+        }
+
 		BatterySprites
 		{
 			Type = ResourceSprites
@@ -293,6 +351,27 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 				}
 			]
 		}
+
+        // Thermal ports for heat pipes (4x4 perimeter)
+        Port_Thermal_Left0   : ~/Part/^/0/BASE_THERMAL_PORT { Location = [0, 0] Direction = Left }
+        Port_Thermal_Left1   : Port_Thermal_Left0 { Location = [0, 1] }
+        Port_Thermal_Left2   : Port_Thermal_Left0 { Location = [0, 2] }
+        Port_Thermal_Left3   : Port_Thermal_Left0 { Location = [0, 3] }
+
+        Port_Thermal_Right0  : Port_Thermal_Left0 { Location = [3, 0] Direction = Right }
+        Port_Thermal_Right1  : Port_Thermal_Right0 { Location = [3, 1] }
+        Port_Thermal_Right2  : Port_Thermal_Right0 { Location = [3, 2] }
+        Port_Thermal_Right3  : Port_Thermal_Right0 { Location = [3, 3] }
+
+        Port_Thermal_Up0     : Port_Thermal_Left0 { Location = [0, 0] Direction = Up }
+        Port_Thermal_Up1     : Port_Thermal_Up0 { Location = [1, 0] }
+        Port_Thermal_Up2     : Port_Thermal_Up0 { Location = [2, 0] }
+        Port_Thermal_Up3     : Port_Thermal_Up0 { Location = [3, 0] }
+
+        Port_Thermal_Down0   : Port_Thermal_Left0 { Location = [0, 3] Direction = Down }
+        Port_Thermal_Down1   : Port_Thermal_Down0 { Location = [1, 3] }
+        Port_Thermal_Down2   : Port_Thermal_Down0 { Location = [2, 3] }
+        Port_Thermal_Down3   : Port_Thermal_Down0 { Location = [3, 3] }
 	}
 
 	Stats
@@ -306,5 +385,25 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 		MaxBuffPerPart = &~/Part/Components/BuffProvider/MaxBuffPerPart
 		TotalMaxBuff = &~/Part/Components/BuffProvider/TotalBuffCap
 		Aredja2OperatingPower = &~/Part/Components/BuffProvider/BuffAmount
+	}
+
+	SecondaryToolTip
+	{
+		TitleKey = "StatCategories/Overclocked"
+		DescriptionKey = "Parts/Aredja2AILargeCoreOverclockDesc"
+		StatsByCategory
+		[
+			{
+				NameKey = "StatCategories/Overclocked"
+				Stats
+				{
+					BuffWidth = &~/Part/Components/Overclock_BuffProvider/BuffArea/2
+					BuffHeight = &~/Part/Components/Overclock_BuffProvider/BuffArea/3
+					MaxBuffPerPart = &~/Part/Components/Overclock_BuffProvider/MaxBuffPerPart
+					TotalBuffCap = &~/Part/Components/Overclock_BuffProvider/TotalBuffCap
+					HeatGeneration = 1600
+				}
+			}
+		]
 	}
 }
