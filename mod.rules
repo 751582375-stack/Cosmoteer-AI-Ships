@@ -954,6 +954,29 @@ Actions
 	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/TypeCategories"; ToAdd = is_crewed}
 	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
-// ... existing code ...
+
+	// -----------------------------------------------------
+	// BALANCED SENSORS MOD COMPATIBILITY
+	// -----------------------------------------------------
+
+	// Rusty Sensor Array S (mod 3010998053) - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_s/sensor_array_rusty_s.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_s/sensor_array_rusty_s.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_s/sensor_array_rusty_s.rules>/Part/Components"; BaseToAdd = &<automation_components_rusty_sensors/sensor_array_rusty_s.rules>}
+
+	// Rusty Sensor Array M (mod 3010998053) - Requires 4 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_m/sensor_array_rusty_m.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_m/sensor_array_rusty_m.rules>/Part/Stats/CrewRequired"; With = 4}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_m/sensor_array_rusty_m.rules>/Part/Components"; BaseToAdd = &<automation_components_rusty_sensors/sensor_array_rusty_m.rules>}
+
+	// Rusty Sensor Array L (mod 3010998053) - Requires 6 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_l/sensor_array_rusty_l.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_l/sensor_array_rusty_l.rules>/Part/Stats/CrewRequired"; With = 6}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_l/sensor_array_rusty_l.rules>/Part/Components"; BaseToAdd = &<automation_components_rusty_sensors/sensor_array_rusty_l.rules>}
+
+	// Rusty Sensor Array H (mod 3010998053) - Requires 8 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_h/sensor_array_rusty_h.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_h/sensor_array_rusty_h.rules>/Part/Stats/CrewRequired"; With = 8}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_h/sensor_array_rusty_h.rules>/Part/Components"; BaseToAdd = &<automation_components_rusty_sensors/sensor_array_rusty_h.rules>}
 ]
 
