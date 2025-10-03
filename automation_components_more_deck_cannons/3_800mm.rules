@@ -1,0 +1,921 @@
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, PartCrewMinusThree, PartCrewMinusFour, PartCrewMinusFive, PartCrewMinusSix, PartCrewMinusSeven, PartCrewMinusEight, PartCrewMinusNine, PartCrewMinusTen, PartCrewMinusEleven, PartCrewMinusTwelve, PartCrewMinusThirteen, PartCrewMinusFourteen, PartCrewMinusFifteen, PartCrewMinusSixteen, PartCrewMinusSeventeen, PartCrewMinusEighteen, PartCrewMinusNineteen, PartCrewMinusTwenty]
+	Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo, NeedsCrewMinusThree, NeedsCrewMinusFour, NeedsCrewMinusFive, NeedsCrewMinusSix, NeedsCrewMinusSeven, NeedsCrewMinusEight, NeedsCrewMinusNine, NeedsCrewMinusTen, NeedsCrewMinusEleven, NeedsCrewMinusTwelve, NeedsCrewMinusThirteen, NeedsCrewMinusFourteen, NeedsCrewMinusFifteen, NeedsCrewMinusSixteen, NeedsCrewMinusSeventeen, NeedsCrewMinusEighteen, NeedsCrewMinusNineteen, NeedsCrewMinusTwenty]
+	Mode = Any
+	Invert = True
+}
+
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1
+}
+
+NeedsCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+	MaxBuffValue = 2
+}
+
+NeedsCrewMinusThree
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 3
+	MaxBuffValue = 3
+}
+
+NeedsCrewMinusFour
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 4
+	MaxBuffValue = 4
+}
+
+NeedsCrewMinusFive
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 5
+	MaxBuffValue = 5
+}
+
+NeedsCrewMinusSix
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 6
+	MaxBuffValue = 6
+}
+
+NeedsCrewMinusSeven
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 7
+	MaxBuffValue = 7
+}
+
+NeedsCrewMinusEight
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 8
+	MaxBuffValue = 8
+}
+
+NeedsCrewMinusNine
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 9
+	MaxBuffValue = 9
+}
+
+NeedsCrewMinusTen
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 10
+	MaxBuffValue = 10
+}
+
+NeedsCrewMinusEleven
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 11
+	MaxBuffValue = 11
+}
+
+NeedsCrewMinusTwelve
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 12
+	MaxBuffValue = 12
+}
+
+NeedsCrewMinusThirteen
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 13
+	MaxBuffValue = 13
+}
+
+NeedsCrewMinusFourteen
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 14
+	MaxBuffValue = 14
+}
+
+NeedsCrewMinusFifteen
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 15
+	MaxBuffValue = 15
+}
+
+NeedsCrewMinusSixteen
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 16
+	MaxBuffValue = 16
+}
+
+NeedsCrewMinusSeventeen
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 17
+	MaxBuffValue = 17
+}
+
+NeedsCrewMinusEighteen
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 18
+	MaxBuffValue = 18
+}
+
+NeedsCrewMinusNineteen
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 19
+	MaxBuffValue = 19
+}
+
+NeedsCrewMinusTwenty
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 20
+	MaxBuffValue = 20
+}
+
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 20
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+		[4*89/64+0.6, 3.8*110/64]
+		[4*166/64-0.6, 3.8*110/64]
+		[4*67/64+0.6, 4.2*189/64-0.3]
+		[4*189/64-0.6, 4.2*189/64-0.3]
+		[1.3+0.7, 1.3-0.4]
+		[14.7-0.7, 1.3-0.4]
+		[1.3-0.4, 1.3+0.7]
+		[14.7+0.4, 1.3+0.7]
+		[4*89/64-0.6, 3.8*110/64]
+		[4*166/64+0.6, 3.8*110/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+		CrewLocation11
+		CrewLocation12
+		CrewLocation13
+		CrewLocation14
+		CrewLocation15
+		CrewLocation16
+		CrewLocation17
+		CrewLocation18
+		CrewLocation19
+		CrewLocation20
+	]
+}
+
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 19
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+		[4*89/64+0.6, 3.8*110/64]
+		[4*166/64-0.6, 3.8*110/64]
+		[4*67/64+0.6, 4.2*189/64-0.3]
+		[4*189/64-0.6, 4.2*189/64-0.3]
+		[1.3+0.7, 1.3-0.4]
+		[14.7-0.7, 1.3-0.4]
+		[1.3-0.4, 1.3+0.7]
+		[14.7+0.4, 1.3+0.7]
+		[4*89/64-0.6, 3.8*110/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+		CrewLocation11
+		CrewLocation12
+		CrewLocation13
+		CrewLocation14
+		CrewLocation15
+		CrewLocation16
+		CrewLocation17
+		CrewLocation18
+		CrewLocation19
+	]
+}
+
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 18
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwo]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+		[4*89/64+0.6, 3.8*110/64]
+		[4*166/64-0.6, 3.8*110/64]
+		[4*67/64+0.6, 4.2*189/64-0.3]
+		[4*189/64-0.6, 4.2*189/64-0.3]
+		[1.3+0.7, 1.3-0.4]
+		[14.7-0.7, 1.3-0.4]
+		[1.3-0.4, 1.3+0.7]
+		[14.7+0.4, 1.3+0.7]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+		CrewLocation11
+		CrewLocation12
+		CrewLocation13
+		CrewLocation14
+		CrewLocation15
+		CrewLocation16
+		CrewLocation17
+		CrewLocation18
+	]
+}
+
+PartCrewMinusThree
+{
+	Type = PartCrew
+	Crew = 17
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusThree]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+		[4*89/64+0.6, 3.8*110/64]
+		[4*166/64-0.6, 3.8*110/64]
+		[4*67/64+0.6, 4.2*189/64-0.3]
+		[4*189/64-0.6, 4.2*189/64-0.3]
+		[1.3+0.7, 1.3-0.4]
+		[14.7-0.7, 1.3-0.4]
+		[1.3-0.4, 1.3+0.7]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+		CrewLocation11
+		CrewLocation12
+		CrewLocation13
+		CrewLocation14
+		CrewLocation15
+		CrewLocation16
+		CrewLocation17
+	]
+}
+
+PartCrewMinusFour
+{
+	Type = PartCrew
+	Crew = 16
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFour]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+		[4*89/64+0.6, 3.8*110/64]
+		[4*166/64-0.6, 3.8*110/64]
+		[4*67/64+0.6, 4.2*189/64-0.3]
+		[4*189/64-0.6, 4.2*189/64-0.3]
+		[1.3+0.7, 1.3-0.4]
+		[14.7-0.7, 1.3-0.4]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+		CrewLocation11
+		CrewLocation12
+		CrewLocation13
+		CrewLocation14
+		CrewLocation15
+		CrewLocation16
+	]
+}
+
+PartCrewMinusFive
+{
+	Type = PartCrew
+	Crew = 15
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFive]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+		[4*89/64+0.6, 3.8*110/64]
+		[4*166/64-0.6, 3.8*110/64]
+		[4*67/64+0.6, 4.2*189/64-0.3]
+		[4*189/64-0.6, 4.2*189/64-0.3]
+		[1.3+0.7, 1.3-0.4]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+		CrewLocation11
+		CrewLocation12
+		CrewLocation13
+		CrewLocation14
+		CrewLocation15
+	]
+}
+
+PartCrewMinusSix
+{
+	Type = PartCrew
+	Crew = 14
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusSix]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+		[4*89/64+0.6, 3.8*110/64]
+		[4*166/64-0.6, 3.8*110/64]
+		[4*67/64+0.6, 4.2*189/64-0.3]
+		[4*189/64-0.6, 4.2*189/64-0.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+		CrewLocation11
+		CrewLocation12
+		CrewLocation13
+		CrewLocation14
+	]
+}
+
+PartCrewMinusSeven
+{
+	Type = PartCrew
+	Crew = 13
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusSeven]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+		[4*89/64+0.6, 3.8*110/64]
+		[4*166/64-0.6, 3.8*110/64]
+		[4*67/64+0.6, 4.2*189/64-0.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+		CrewLocation11
+		CrewLocation12
+		CrewLocation13
+	]
+}
+
+PartCrewMinusEight
+{
+	Type = PartCrew
+	Crew = 12
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusEight]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+		[4*89/64+0.6, 3.8*110/64]
+		[4*166/64-0.6, 3.8*110/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+		CrewLocation11
+		CrewLocation12
+	]
+}
+
+PartCrewMinusNine
+{
+	Type = PartCrew
+	Crew = 11
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNine]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+		[4*89/64+0.6, 3.8*110/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+		CrewLocation11
+	]
+}
+
+PartCrewMinusTen
+{
+	Type = PartCrew
+	Crew = 10
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTen]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+		[15.05, 14.8]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+		CrewLocation10
+	]
+}
+
+PartCrewMinusEleven
+{
+	Type = PartCrew
+	Crew = 9
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusEleven]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+		[0.95, 14.8]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+		CrewLocation9
+	]
+}
+
+PartCrewMinusTwelve
+{
+	Type = PartCrew
+	Crew = 8
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwelve]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+		[14.9, 13.2]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+		CrewLocation8
+	]
+}
+
+PartCrewMinusThirteen
+{
+	Type = PartCrew
+	Crew = 7
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusThirteen]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+		[1.1, 13.2]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+		CrewLocation7
+	]
+}
+
+PartCrewMinusFourteen
+{
+	Type = PartCrew
+	Crew = 6
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFourteen]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+		[14.7, 1.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+		CrewLocation6
+	]
+}
+
+PartCrewMinusFifteen
+{
+	Type = PartCrew
+	Crew = 5
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusFifteen]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+		[1.3, 1.3]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+		CrewLocation5
+	]
+}
+
+PartCrewMinusSixteen
+{
+	Type = PartCrew
+	Crew = 4
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusSixteen]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+		[4*189/64, 4.24*189/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+	]
+}
+
+PartCrewMinusSeventeen
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusSeventeen]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+		[4*67/64, 4.24*189/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+	]
+}
+
+PartCrewMinusEighteen
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusEighteen]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+		[4*166/64, 3.8*110/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+	]
+}
+
+PartCrewMinusNineteen
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNineteen]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[4*89/64, 3.8*110/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+	]
+}
+
+PartCrewMinusTwenty
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 20
+}
+
+CrewLocation1 { Type = CrewLocation; Location = [4*89/64, 3.8*110/64] }
+CrewLocation2 { Type = CrewLocation; Location = [4*166/64, 3.8*110/64] }
+CrewLocation3 { Type = CrewLocation; Location = [4*67/64, 4.24*189/64] }
+CrewLocation4 { Type = CrewLocation; Location = [4*189/64, 4.24*189/64] }
+CrewLocation5 { Type = CrewLocation; Location = [1.3, 1.3] }
+CrewLocation6 { Type = CrewLocation; Location = [14.7, 1.3] }
+CrewLocation7 { Type = CrewLocation; Location = [1.1, 13.2] }
+CrewLocation8 { Type = CrewLocation; Location = [14.9, 13.2] }
+CrewLocation9 { Type = CrewLocation; Location = [0.95, 14.8] }
+CrewLocation10 { Type = CrewLocation; Location = [15.05, 14.8] }
+CrewLocation11 { Type = CrewLocation; Location = [4*89/64+0.6, 3.8*110/64] }
+CrewLocation12 { Type = CrewLocation; Location = [4*166/64-0.6, 3.8*110/64] }
+CrewLocation13 { Type = CrewLocation; Location = [4*67/64+0.6, 4.2*189/64-0.3] }
+CrewLocation14 { Type = CrewLocation; Location = [4*189/64-0.6, 4.2*189/64-0.3] }
+CrewLocation15 { Type = CrewLocation; Location = [1.3+0.7, 1.3-0.4] }
+CrewLocation16 { Type = CrewLocation; Location = [14.7-0.7, 1.3-0.4] }
+CrewLocation17 { Type = CrewLocation; Location = [1.3-0.4, 1.3+0.7] }
+CrewLocation18 { Type = CrewLocation; Location = [14.7+0.4, 1.3+0.7] }
+CrewLocation19 { Type = CrewLocation; Location = [4*89/64-0.6, 3.8*110/64] }
+CrewLocation20 { Type = CrewLocation; Location = [4*166/64+0.6, 3.8*110/64] }
