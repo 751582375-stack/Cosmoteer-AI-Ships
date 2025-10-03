@@ -954,6 +954,124 @@ Actions
 	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/TypeCategories"; ToAdd = is_crewed}
 	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
-// ... existing code ...
+
+
+	// -----------------------------------------------------
+	// More Deck Cannons 0.30 Beta MOD COMPATIBILITY
+	// Only applies if the More Deck Cannons 0.30 Beta mod is installed
+	// -----------------------------------------------------
+
+	//2_127mm - 需要4人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_127mm/2_127mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_127mm/2_127mm.rules>/Part/Stats/CrewRequired"; With = 4}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_127mm/2_127mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_127mm.rules>}
+
+	//2_203mm - 需要4人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_203mm/2_203mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_203mm/2_203mm.rules>/Part/Stats/CrewRequired"; With = 4}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_203mm/2_203mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_203mm.rules>}
+
+	//2_381mm - 需要6人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_381mm/2_381mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_381mm/2_381mm.rules>/Part/Stats/CrewRequired"; With = 6}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_381mm/2_381mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_381mm.rules>}
+
+	//2_420mm - 需要8人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_420mm/2_420mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_420mm/2_420mm.rules>/Part/Stats/CrewRequired"; With = 8}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_420mm/2_420mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_420mm.rules>}
+
+	//2_420mm_b - 需要8人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_420mm_b/2_420mm_b.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_420mm_b/2_420mm_b.rules>/Part/Stats/CrewRequired"; With = 8}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_420mm_b/2_420mm_b.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_420mm_b.rules>}
+
+	//2_508mm - 需要8人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_508mm/2_508mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_508mm/2_508mm.rules>/Part/Stats/CrewRequired"; With = 8}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_508mm/2_508mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_508mm.rules>}
+
+	//2_610mm - 需要10人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_610mm/2_610mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_610mm/2_610mm.rules>/Part/Stats/CrewRequired"; With = 10}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_610mm/2_610mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_610mm.rules>}
+
+	//2_914mm - 需要20人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_914mm/2_914mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_914mm/2_914mm.rules>/Part/Stats/CrewRequired"; With = 20}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_914mm/2_914mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_914mm.rules>}
+
+	//3_152mm - 需要4人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_152mm/3_152mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_152mm/3_152mm.rules>/Part/Stats/CrewRequired"; With = 4}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_152mm/3_152mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_152mm.rules>}
+
+	//3_203mm - 需要4人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_203mm/3_203mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_203mm/3_203mm.rules>/Part/Stats/CrewRequired"; With = 4}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_203mm/3_203mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_203mm.rules>}
+
+	//3_283mm - 需要6人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_283mm/3_283mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_283mm/3_283mm.rules>/Part/Stats/CrewRequired"; With = 6}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_283mm/3_283mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_283mm.rules>}
+
+	//3_406mm - 需要8人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_406mm/3_406mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_406mm/3_406mm.rules>/Part/Stats/CrewRequired"; With = 8}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_406mm/3_406mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_406mm.rules>}
+ 	
+	//3_460mm - 需要8人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_460mm/3_460mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_460mm/3_460mm.rules>/Part/Stats/CrewRequired"; With = 8}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_460mm/3_460mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_460mm.rules>}
+
+	//3_533mm - 需要10人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_533mm/3_533mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_533mm/3_533mm.rules>/Part/Stats/CrewRequired"; With = 10}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_533mm/3_533mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_533mm.rules>}
+
+	//3_800mm - 需要20人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_800mm/3_800mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_800mm/3_800mm.rules>/Part/Stats/CrewRequired"; With = 20}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_800mm/3_800mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_800mm.rules>}
+
+	//4_130mm - 需要4人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/4_130mm/4_130mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/4_130mm/4_130mm.rules>/Part/Stats/CrewRequired"; With = 4}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/4_130mm/4_130mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/4_130mm.rules>}
+	
+	//4_380mm - 需要8人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/4_380mm/4_380mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/4_380mm/4_380mm.rules>/Part/Stats/CrewRequired"; With = 8}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/4_380mm/4_380mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/4_380mm.rules>}
+	
+	//4_431mm - 需要10人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/4_431mm/4_431mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/4_431mm/4_431mm.rules>/Part/Stats/CrewRequired"; With = 10}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/4_431mm/4_431mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/4_431mm.rules>}
+	
+	//6_406mm - 需要10人 
+    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/6_406mm/6_406mm.rules>/Part/Components/PartCrew"}
+    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/6_406mm/6_406mm.rules>/Part/Stats/CrewRequired"; With = 10}
+    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/6_406mm/6_406mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/6_406mm.rules>}
+
+	// 1130 - 需要3人 
+	{Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130/1130.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130/1130.rules>/Part/Stats/CrewRequired"; With = 3}
+	{Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130/1130.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130.rules>}
+
+	{Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130/1130S.rules>/Part/Components/PartCrew"}
+	{Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130/1130S.rules>/Part/Stats/CrewRequired"; With = 3}
+	{Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130/1130S.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130S.rules>}
+
+//	{Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130D/1130.rules>/Part/Components/PartCrew"}
+//	{Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130D/1130.rules>/Part/Stats/CrewRequired"; With = 3}
+//	{Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130D/1130.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130.rules>}
+//
+//	{Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130D/1130S.rules>/Part/Components/PartCrew"}
+//	{Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130D1130S.rules>/Part/Stats/CrewRequired"; With = 3}
+//	{Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130D/1130S.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130S.rules>}
+
 ]
 
