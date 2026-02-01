@@ -1,7 +1,7 @@
 ID = aredja.ai_ships
 Name = "AI Ships"
-Version = "1.0.0"
-CompatibleGameVersions = ["0.30.0"]
+Version = "1.0.2"
+CompatibleGameVersions = ["0.30.3b"]
 ModifiesGameplay = true
 ModifiesMultiplayer = true
 Author = "aredja"
@@ -587,169 +587,182 @@ Actions
 	// -----------------------------------------------------
 
 	// Captain's Room - Requires 1 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Stats/CrewRequired"; With = 1}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_captains_room.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_captains_room.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/rooms/fed_captains_room/fed_captains_room.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Phaserbank Controller - Requires 1 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Stats/CrewRequired"; With = 1}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_phaserbank_controller.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	// {IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_phaserbank_controller.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	// {IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaserbank_controller/fed_phaserbank_controller.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Railgun Loader - Requires 2 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Stats/CrewRequired"; With = 2}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/railgun_loader.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/railgun_loader.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaserbank_controller/railgun_loader.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Phaser Cannon Deck - Requires 1 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Stats/CrewRequired"; With = 1}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_phaser_cannon_deck.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_phaser_cannon_deck.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaser_cannon_deck/fed_phaser_cannon_deck.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Phaser Point Defense - Requires 1 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Stats/CrewRequired"; With = 1}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_phaser_point_defense.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_phaser_point_defense.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_phaser_point_defense/fed_phaser_point_defense.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+
+	// -----------------------------------------------------
+	// THE INFERNUM MOD COMPATIBILITY
+	// Only applies if The Infernum mod is installed
+	// -----------------------------------------------------
+
+	// Hellfire Howitzer - Requires 4 crew (automation scales with AI core)
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3546356734/parts/Hellflare_Howitzer/hellfire_howitzer.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3546356734/parts/Hellflare_Howitzer/hellfire_howitzer.rules>/Part/Stats/CrewRequired"; With = 4}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3546356734/parts/Hellflare_Howitzer/hellfire_howitzer.rules>/Part/Components"; BaseToAdd = &<automation_components_infernum/hellfire_howitzer.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3546356734/parts/Hellflare_Howitzer/hellfire_howitzer.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3546356734/parts/Hellflare_Howitzer/hellfire_howitzer.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3546356734/parts/Hellflare_Howitzer/hellfire_howitzer.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// -----------------------------------------------------
 	// ST-AFA Federation MOD COMPATIBILITY (continued)
 	// -----------------------------------------------------
 
 	// Dual Phaser Cannon - Requires 2 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Stats/CrewRequired"; With = 2}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_dual_phaser_cannon.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_dual_phaser_cannon.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_dual_phaser_cannon/fed_dual_phaser_cannon.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Torpedo Launcher - Requires 2 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Stats/CrewRequired"; With = 2}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_torpedo_launcher.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_torpedo_launcher.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Torpedo Launcher Deck - Requires 2 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Stats/CrewRequired"; With = 2}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_torpedo_launcher_deck.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_torpedo_launcher_deck.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_deck.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Torpedo Launcher AI - Requires 2 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Stats/CrewRequired"; With = 2}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_torpedo_launcher_ai.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_torpedo_launcher_ai.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/weapons/fed_torpedolauncher/fed_torpedo_launcher_ai.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// ST-AFA Federation Engines & Warp Nacelles Compatibility
 
 	// Impulse Engine 3x2 - Requires 1 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Stats/CrewRequired"; With = 1}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_impulse_3x2.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_impulse_3x2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_3x2/fed_impulse_3x2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Impulse Engine 4x2 - Requires 2 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Stats/CrewRequired"; With = 2}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_impulse_4x2.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_impulse_4x2.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_4x2/fed_impulse_4x2.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Impulse Engine 6x3 - Requires 3 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Stats/CrewRequired"; With = 3}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_impulse_6x3.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_impulse_6x3.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_impulse_6x3/fed_impulse_6x3.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// ST-AFA Federation Warp Nacelles Compatibility
 
 	// Warp Nacelle 1x6 - Requires 1 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Stats/CrewRequired"; With = 1}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_1x6.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_1x6.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_1x6/fed_warpnacelle_1x6.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Warp Nacelle 1x9 - Requires 1 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Stats/CrewRequired"; With = 1}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_1x9.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Stats/CrewRequired"; With = 1}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_1x9.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_1x9/fed_warpnacelle_1x9.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Warp Nacelle 2x6 - Requires 2 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Stats/CrewRequired"; With = 2}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_2x6.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_2x6.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_2x6/fed_warpnacelle_2x6.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Warp Nacelle 2x9 - Requires 2 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Stats/CrewRequired"; With = 2}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_2x9.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_2x9.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_2x9/fed_warpnacelle_2x9.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Warp Nacelle 3x6 - Requires 3 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Stats/CrewRequired"; With = 3}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_3x6.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_3x6.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_3x6/fed_warpnacelle_3x6.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Warp Nacelle 3x9 - Requires 3 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Stats/CrewRequired"; With = 3}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_3x9.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpnacelle_3x9.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/engines/fed_warpnacelle_3x9/fed_warpnacelle_3x9.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// ST-AFA Federation Warp Cores Compatibility
 
 	// Warp Core Small - Requires 2 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Stats/CrewRequired"; With = 2}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpcore_small.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpcore_small.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_small/fed_warpcore_small.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Warp Core Medium - Requires 3 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Stats/CrewRequired"; With = 3}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpcore_med.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpcore_med.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_med/fed_warpcore_med.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Warp Core Large - Requires 2 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Stats/CrewRequired"; With = 2}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpcore_large.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_warpcore_large.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/energy/fed_warpcore_large/fed_warpcore_large.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 
 	// Shield Core - Requires 4 crew
-	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Components/PartCrew"}
-	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Stats/CrewRequired"; With = 4}
-	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_shieldcore.rules>}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/TypeCategories"; ToAdd = is_crewed}
-	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
-	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2918981467/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3657776313/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3657776313/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Stats/CrewRequired"; With = 4}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3657776313/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Components"; BaseToAdd = &<automation_components_federation/fed_shieldcore.rules>}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/TypeCategories"; ToAdd = is_crewed}
+	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/3657776313/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
+	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/3657776313/parts/shields/fed_shieldcore/fed_shieldcore_switch.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
 
 	// -----------------------------------------------------
 	// MOD COMPATIBILITY - GENERAL MUNITIONS (3472566018)
@@ -954,133 +967,147 @@ Actions
 	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/TypeCategories"; ToAdd = is_crewed}
 	{IgnoreIfNotExisting = true; Action = AddMany; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/Components/IsOperational/Toggles"; ManyToAdd = [PartCrew]}
 	{IgnoreIfNotExisting = true; Action = Add; AddTo = "<../../../workshop/content/799600/2879478059/Parts/Energy_Weapons/assault_cannon/assault_cannon.rules>/Part/ReceivableBuffs"; Name = Aredja2AITerminal; ToAdd = Aredja2AITerminal}
+
+
 	// -----------------------------------------------------
-	// more deck cannons MOD COMPATIBILITY
+	// More Deck Cannons 0.30 Beta MOD COMPATIBILITY
+	// Only applies if the More Deck Cannons 0.30 Beta mod is installed
 	// -----------------------------------------------------
-	
+
 	//2_127mm - 需要4人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_127mm/2_127mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_127mm/2_127mm.rules>/Part/Stats/CrewRequired"; With = 4}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_127mm/2_127mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_127mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_127mm/2_127mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_127mm/2_127mm.rules>/Part/Stats/CrewRequired"; With = 4}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_127mm/2_127mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_127mm.rules>}
 
 	//2_203mm - 需要4人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_203mm/2_203mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_203mm/2_203mm.rules>/Part/Stats/CrewRequired"; With = 4}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_203mm/2_203mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_203mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_203mm/2_203mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_203mm/2_203mm.rules>/Part/Stats/CrewRequired"; With = 4}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_203mm/2_203mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_203mm.rules>}
 
 	//2_381mm - 需要6人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_381mm/2_381mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_381mm/2_381mm.rules>/Part/Stats/CrewRequired"; With = 6}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_381mm/2_381mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_381mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_381mm/2_381mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_381mm/2_381mm.rules>/Part/Stats/CrewRequired"; With = 6}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_381mm/2_381mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_381mm.rules>}
 
 	//2_420mm - 需要8人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_420mm/2_420mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_420mm/2_420mm.rules>/Part/Stats/CrewRequired"; With = 8}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_420mm/2_420mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_420mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_420mm/2_420mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_420mm/2_420mm.rules>/Part/Stats/CrewRequired"; With = 8}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_420mm/2_420mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_420mm.rules>}
 
 	//2_420mm_b - 需要8人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_420mm_b/2_420mm_b.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_420mm_b/2_420mm_b.rules>/Part/Stats/CrewRequired"; With = 8}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_420mm_b/2_420mm_b.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_420mm_b.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_420mm_b/2_420mm_b.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_420mm_b/2_420mm_b.rules>/Part/Stats/CrewRequired"; With = 8}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_420mm_b/2_420mm_b.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_420mm_b.rules>}
 
 	//2_508mm - 需要8人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_508mm/2_508mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_508mm/2_508mm.rules>/Part/Stats/CrewRequired"; With = 8}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_508mm/2_508mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_508mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_508mm/2_508mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_508mm/2_508mm.rules>/Part/Stats/CrewRequired"; With = 8}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_508mm/2_508mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_508mm.rules>}
 
 	//2_610mm - 需要10人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_610mm/2_610mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_610mm/2_610mm.rules>/Part/Stats/CrewRequired"; With = 10}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_610mm/2_610mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_610mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_610mm/2_610mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_610mm/2_610mm.rules>/Part/Stats/CrewRequired"; With = 10}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_610mm/2_610mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_610mm.rules>}
 
 	//2_914mm - 需要20人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_914mm/2_914mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_914mm/2_914mm.rules>/Part/Stats/CrewRequired"; With = 20}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_914mm/2_914mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_914mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/2_914mm/2_914mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/2_914mm/2_914mm.rules>/Part/Stats/CrewRequired"; With = 20}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/2_914mm/2_914mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/2_914mm.rules>}
 
 	//3_152mm - 需要4人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_152mm/3_152mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_152mm/3_152mm.rules>/Part/Stats/CrewRequired"; With = 4}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_152mm/3_152mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_152mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_152mm/3_152mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_152mm/3_152mm.rules>/Part/Stats/CrewRequired"; With = 4}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_152mm/3_152mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_152mm.rules>}
 
 	//3_203mm - 需要4人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_203mm/3_203mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_203mm/3_203mm.rules>/Part/Stats/CrewRequired"; With = 4}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_203mm/3_203mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_203mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_203mm/3_203mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_203mm/3_203mm.rules>/Part/Stats/CrewRequired"; With = 4}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_203mm/3_203mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_203mm.rules>}
 
 	//3_283mm - 需要6人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_283mm/3_283mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_283mm/3_283mm.rules>/Part/Stats/CrewRequired"; With = 6}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_283mm/3_283mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_283mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_283mm/3_283mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_283mm/3_283mm.rules>/Part/Stats/CrewRequired"; With = 6}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_283mm/3_283mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_283mm.rules>}
 
 	//3_406mm - 需要8人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_406mm/3_406mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_406mm/3_406mm.rules>/Part/Stats/CrewRequired"; With = 8}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_406mm/3_406mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_406mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_406mm/3_406mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_406mm/3_406mm.rules>/Part/Stats/CrewRequired"; With = 8}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_406mm/3_406mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_406mm.rules>}
  	
 	//3_460mm - 需要8人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_460mm/3_460mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_460mm/3_460mm.rules>/Part/Stats/CrewRequired"; With = 8}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_460mm/3_460mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_460mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_460mm/3_460mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_460mm/3_460mm.rules>/Part/Stats/CrewRequired"; With = 8}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_460mm/3_460mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_460mm.rules>}
 
 	//3_533mm - 需要10人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_533mm/3_533mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_533mm/3_533mm.rules>/Part/Stats/CrewRequired"; With = 10}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_533mm/3_533mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_533mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_533mm/3_533mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_533mm/3_533mm.rules>/Part/Stats/CrewRequired"; With = 10}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_533mm/3_533mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_533mm.rules>}
 
 	//3_800mm - 需要20人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_800mm/3_800mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_800mm/3_800mm.rules>/Part/Stats/CrewRequired"; With = 20}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_800mm/3_800mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_800mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/3_800mm/3_800mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/3_800mm/3_800mm.rules>/Part/Stats/CrewRequired"; With = 20}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/3_800mm/3_800mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/3_800mm.rules>}
 
 	//4_130mm - 需要4人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/4_130mm/4_130mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/4_130mm/4_130mm.rules>/Part/Stats/CrewRequired"; With = 4}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/4_130mm/4_130mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/4_130mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/4_130mm/4_130mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/4_130mm/4_130mm.rules>/Part/Stats/CrewRequired"; With = 4}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/4_130mm/4_130mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/4_130mm.rules>}
 	
 	//4_380mm - 需要8人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/4_380mm/4_380mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/4_380mm/4_380mm.rules>/Part/Stats/CrewRequired"; With = 8}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/4_380mm/4_380mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/4_380mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/4_380mm/4_380mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/4_380mm/4_380mm.rules>/Part/Stats/CrewRequired"; With = 8}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/4_380mm/4_380mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/4_380mm.rules>}
 	
 	//4_431mm - 需要10人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/4_431mm/4_431mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/4_431mm/4_431mm.rules>/Part/Stats/CrewRequired"; With = 10}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/4_431mm/4_431mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/4_431mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/4_431mm/4_431mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/4_431mm/4_431mm.rules>/Part/Stats/CrewRequired"; With = 10}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/4_431mm/4_431mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/4_431mm.rules>}
 	
 	//6_406mm - 需要10人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/6_406mm/6_406mm.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/6_406mm/6_406mm.rules>/Part/Stats/CrewRequired"; With = 10}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/6_406mm/6_406mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/6_406mm.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/6_406mm/6_406mm.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/6_406mm/6_406mm.rules>/Part/Stats/CrewRequired"; With = 10}
+    {IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/6_406mm/6_406mm.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/6_406mm.rules>}
 
 	// 1130 - 需要3人 
-	{Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130/1130.rules>/Part/Components/PartCrew"}
-	{Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130/1130.rules>/Part/Stats/CrewRequired"; With = 3}
-	{Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130/1130.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130/1130.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130/1130.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130/1130.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130.rules>}
 
-	{Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130/1130S.rules>/Part/Components/PartCrew"}
-	{Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130/1130S.rules>/Part/Stats/CrewRequired"; With = 3}
-	{Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130/1130S.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130S.rules>}
+    {IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130/1130S.rules>/Part/Components/PartCrew"}
+    {IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130/1130S.rules>/Part/Stats/CrewRequired"; With = 3}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130/1130S.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130S.rules>}
 
-//	{Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130D/1130.rules>/Part/Components/PartCrew"}
-//	{Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130D/1130.rules>/Part/Stats/CrewRequired"; With = 3}
-//	{Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130D/1130.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130.rules>}
+//	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130D/1130.rules>/Part/Components/PartCrew"}
+//	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130D/1130.rules>/Part/Stats/CrewRequired"; With = 3}
+//	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130D/1130.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130.rules>}
 //
-//	{Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130D/1130S.rules>/Part/Components/PartCrew"}
-//	{Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130D1130S.rules>/Part/Stats/CrewRequired"; With = 3}
-//	{Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130D/1130S.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130S.rules>}
+//	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3539253648/1130D/1130S.rules>/Part/Components/PartCrew"}
+//	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3539253648/1130D1130S.rules>/Part/Stats/CrewRequired"; With = 3}
+//	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3539253648/1130D/1130S.rules>/Part/Components"; BaseToAdd = &<automation_components_more_deck_cannons/1130S.rules>}
 
 	// -----------------------------------------------------
-	// BleedingGuns Impulse Drives MOD COMPATIBILITY
+	// BALANCED SENSORS MOD COMPATIBILITY
 	// -----------------------------------------------------
 
-    //LargeImpulseDrive - 需要4人 
-    {Action = Remove; Remove = "<../../../workshop/content/799600/3023201707/large_impulse_drive/large_impulse_drive.rules>/Part/Components/PartCrew"}
-    {Action = Replace; Replace = "<../../../workshop/content/799600/3023201707/large_impulse_drive/large_impulse_drive.rules>/Part/Stats/CrewRequired"; With = 4}
-    {Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3023201707/large_impulse_drive/large_impulse_drive.rules>/Part/Components"; BaseToAdd = &<automation_components_bleedingguns_impulse_drives/large_impulse_drive.rules>}
+	// Rusty Sensor Array S (mod 3010998053) - Requires 2 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_s/sensor_array_rusty_s.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_s/sensor_array_rusty_s.rules>/Part/Stats/CrewRequired"; With = 2}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_s/sensor_array_rusty_s.rules>/Part/Components"; BaseToAdd = &<automation_components_rusty_sensors/sensor_array_rusty_s.rules>}
 
+	// Rusty Sensor Array M (mod 3010998053) - Requires 4 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_m/sensor_array_rusty_m.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_m/sensor_array_rusty_m.rules>/Part/Stats/CrewRequired"; With = 4}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_m/sensor_array_rusty_m.rules>/Part/Components"; BaseToAdd = &<automation_components_rusty_sensors/sensor_array_rusty_m.rules>}
 
-// ... existing code ...
+	// Rusty Sensor Array L (mod 3010998053) - Requires 6 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_l/sensor_array_rusty_l.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_l/sensor_array_rusty_l.rules>/Part/Stats/CrewRequired"; With = 6}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_l/sensor_array_rusty_l.rules>/Part/Components"; BaseToAdd = &<automation_components_rusty_sensors/sensor_array_rusty_l.rules>}
 
+	// Rusty Sensor Array H (mod 3010998053) - Requires 8 crew
+	{IgnoreIfNotExisting = true; Action = Remove; Remove = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_h/sensor_array_rusty_h.rules>/Part/Components/PartCrew"}
+	{IgnoreIfNotExisting = true; Action = Replace; Replace = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_h/sensor_array_rusty_h.rules>/Part/Stats/CrewRequired"; With = 8}
+	{IgnoreIfNotExisting = true; Action = AddBase; AddBaseTo = "<../../../workshop/content/799600/3010998053/Parts/sensor_array_rusty_h/sensor_array_rusty_h.rules>/Part/Components"; BaseToAdd = &<automation_components_rusty_sensors/sensor_array_rusty_h.rules>}
 ]
 
