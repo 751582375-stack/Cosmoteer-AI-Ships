@@ -1,0 +1,73 @@
+// Rusty Sensor Array S (base crew 2) automation component
+// Mirrors original crew logic and prerequisites, enabling AI buff reductions
+
+PartCrew
+{
+    Type = MultiToggle
+    Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo]
+    Mode = Any
+}
+
+NeedsCrewMinusNone
+{
+    Type = MultiToggle
+    Toggles = [NeedsCrewMinusOne, PartCrewMinusTwo]
+    Mode = Any
+    Invert = True
+}
+
+NeedsCrewMinusOne
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MaxBuffValue = 1
+    MinBuffValue = 1
+}
+
+PartCrewMinusNone
+{
+    Type = PartCrew
+    Crew = 2
+    DefaultPriority = &/PRIORITIES/Utility_Crew
+    PrerequisitesBeforeCrewing = [CommandConsumptionToggle, NeedsCrewMinusNone]
+    HighPriorityPrerequisites = [BatteryStorage]
+    CrewDestinations
+    [
+        [1, 0.44]
+        [1, 1.46]
+    ]
+    CrewLocations
+    [
+        CrewLocation1
+        CrewLocation2
+    ]
+}
+
+PartCrewMinusOne
+{
+    Type = PartCrew
+    Crew = 1
+    DefaultPriority = &/PRIORITIES/Utility_Crew
+    PrerequisitesBeforeCrewing = [CommandConsumptionToggle, NeedsCrewMinusOne]
+    HighPriorityPrerequisites = [BatteryStorage]
+    OverridePriorityKey = PartCrewMinusNone
+    CrewDestinations
+    [
+        [1, 0.44]
+        [1, 1.46]
+    ]
+    CrewLocations
+    [
+        CrewLocation1
+        CrewLocation2
+    ]
+    SwitchLocationInterval = [5, 10]
+}
+
+PartCrewMinusTwo
+{
+    Type = BuffToggle
+    BuffType = Aredja2AITerminal
+    MinBuffValue = 2
+}
+
