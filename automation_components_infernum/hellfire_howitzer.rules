@@ -1,0 +1,153 @@
+// Hellfire Howitzer (The Infernum) Automation Component
+// Enables AI-core crew scaling while preserving original crew positions
+
+PartCrew
+{
+	Type = MultiToggle
+	Toggles = [PartCrewMinusNone, PartCrewMinusOne, PartCrewMinusTwo, PartCrewMinusThree, PartCrewMinusFour]
+	Mode = Any
+}
+
+// --- Buff Level Toggles ---
+NeedsCrewMinusOne
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 1
+	MaxBuffValue = 1
+}
+
+NeedsCrewMinusTwo
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 2
+	MaxBuffValue = 2
+}
+
+// (reserved)
+
+// --- Gate for Standard Crew (4 crew) ---
+NeedsCrewMinusNone
+{
+	Type = MultiToggle
+	Toggles = [NeedsCrewMinusOne, NeedsCrewMinusTwo, NeedsCrewMinusThree, PartCrewMinusFour]
+	Mode = Any
+	Invert = True
+}
+
+// --- Crew Configurations ---
+PartCrewMinusNone
+{
+	Type = PartCrew
+	Crew = 4
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusNone]
+	HighPriorityPrerequisites = [AmmoPrereq]
+	CrewDestinations
+	[
+		[89/64, 110/64]
+		[166/64, 110/64]
+		[67/64, 189/64]
+		[189/64, 189/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+	]
+}
+
+PartCrewMinusOne
+{
+	Type = PartCrew
+	Crew = 3
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusOne]
+	HighPriorityPrerequisites = [AmmoPrereq]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[89/64, 110/64]
+		[166/64, 110/64]
+		[67/64, 189/64]
+		[189/64, 189/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+	]
+    SwitchLocationInterval = [5, 10]
+}
+
+PartCrewMinusTwo
+{
+	Type = PartCrew
+	Crew = 2
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusTwo]
+	HighPriorityPrerequisites = [AmmoPrereq]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[89/64, 110/64]
+		[166/64, 110/64]
+		[67/64, 189/64]
+		[189/64, 189/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+	]
+    SwitchLocationInterval = [5, 10]
+}
+
+NeedsCrewMinusThree
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 3
+	MaxBuffValue = 3
+}
+
+PartCrewMinusThree
+{
+	Type = PartCrew
+	Crew = 1
+	DefaultPriority = &/PRIORITIES/Weapon_Crew
+	PrerequisitesBeforeCrewing = [PowerToggle, NeedsCrewMinusThree]
+	HighPriorityPrerequisites = [AmmoPrereq]
+	OverridePriorityKey = PartCrewMinusNone
+	CrewDestinations
+	[
+		[89/64, 110/64]
+		[166/64, 110/64]
+		[67/64, 189/64]
+		[189/64, 189/64]
+	]
+	CrewLocations
+	[
+		CrewLocation1
+		CrewLocation2
+		CrewLocation3
+		CrewLocation4
+	]
+	SwitchLocationInterval = [5, 10]
+}
+
+PartCrewMinusFour
+{
+	Type = BuffToggle
+	BuffType = Aredja2AITerminal
+	MinBuffValue = 4
+}
+
+

@@ -53,18 +53,7 @@ Part : <./Data/ships/terran/base_part_terran_overclock.rules>/Part
 			Mode = All
 		}
 
-        IsOperationalNonOverclocked
-        {
-            Type = MultiToggle
-            Toggles = [ IsOperational, { Toggle=OverclockModeToggle; Invert=true } ]
-            Mode = All
-        }
-        IsOperationalOverclocked
-        {
-            Type = MultiToggle
-            Toggles = [ IsOperational, OverclockModeToggle ]
-            Mode = All
-        }
+
 
 		PowerToggle
 		{
@@ -109,7 +98,8 @@ Part : <./Data/ships/terran/base_part_terran_overclock.rules>/Part
 			Interval = 30
 		}
 
-        BuffProvider
+        // Normal mode buff provider - only active when NOT overclocked
+        NormalBuffProvider
         {
             Type = AreaBuffProvider
             BuffType = Aredja2AITerminal
@@ -122,12 +112,32 @@ Part : <./Data/ships/terran/base_part_terran_overclock.rules>/Part
             ChainsFromBuffType = Aredja2AITerminal
         }
 
-        Overclock_BuffProvider : BuffProvider
+        // Overclock mode buff provider - only active when overclocked
+        OverclockBuffProvider
         {
+            Type = AreaBuffProvider
+            BuffType = Aredja2AITerminal
             BuffArea = [-9, -9, 22, 22]
+            BuffAmount = 4
             MaxBuffPerPart = 4
             TotalBuffCap = 48
+            Criteria { Category = is_crewed }
             OperationalToggle = IsOperationalOverclocked
+            ChainsFromBuffType = Aredja2AITerminal
+        }
+
+        // Recreate the operational toggles to ensure they're mutually exclusive
+        IsOperationalNonOverclocked
+        {
+            Type = MultiToggle
+            Toggles = [ IsOperational, { Toggle=OverclockModeToggle; Invert=true } ]
+            Mode = All
+        }
+        IsOperationalOverclocked
+        {
+            Type = MultiToggle
+            Toggles = [ IsOperational, OverclockModeToggle ]
+            Mode = All
         }
 
 		CrewLocation1
@@ -382,9 +392,9 @@ Part : <./Data/ships/terran/base_part_terran_overclock.rules>/Part
 		RecCrew = (&RecPower) * 4
 		BuffRadius = 5
 		CrewRequired = &~/Part/Components/PartCrew/Crew
-		MaxBuffPerPart = &~/Part/Components/BuffProvider/MaxBuffPerPart
-		TotalMaxBuff = &~/Part/Components/BuffProvider/TotalBuffCap
-		Aredja2OperatingPower = &~/Part/Components/BuffProvider/BuffAmount
+		MaxBuffPerPart = &~/Part/Components/NormalBuffProvider/MaxBuffPerPart
+		TotalMaxBuff = &~/Part/Components/NormalBuffProvider/TotalBuffCap
+		Aredja2OperatingPower = &~/Part/Components/NormalBuffProvider/BuffAmount
 	}
 
 	SecondaryToolTip
@@ -397,10 +407,10 @@ Part : <./Data/ships/terran/base_part_terran_overclock.rules>/Part
 				NameKey = "StatCategories/Overclocked"
 				Stats
 				{
-					BuffWidth = &~/Part/Components/Overclock_BuffProvider/BuffArea/2
-					BuffHeight = &~/Part/Components/Overclock_BuffProvider/BuffArea/3
-					MaxBuffPerPart = &~/Part/Components/Overclock_BuffProvider/MaxBuffPerPart
-					TotalBuffCap = &~/Part/Components/Overclock_BuffProvider/TotalBuffCap
+					BuffWidth = &~/Part/Components/OverclockBuffProvider/BuffArea/2
+					BuffHeight = &~/Part/Components/OverclockBuffProvider/BuffArea/3
+					MaxBuffPerPart = &~/Part/Components/OverclockBuffProvider/MaxBuffPerPart
+					TotalBuffCap = &~/Part/Components/OverclockBuffProvider/TotalBuffCap
 					HeatGeneration = 1600
 				}
 			}
