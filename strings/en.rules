@@ -6,15 +6,15 @@ Parts
 	
 	Aredja2AILargeCore = "Advanced AI Core"
 	Aredja2AILargeCoreIcon = &Aredja2AILargeCore
-	Aredja2AILargeCoreDesc = "A large AI control center that operates nearby parts within a 3-tile radius. Provides four times the crew capability of a standard AI core and can chain with other AI cores for enhanced coverage."
+	Aredja2AILargeCoreDesc = "A large AI control center that operates nearby parts within a 6-tile radius. Provides four times the crew capability of a standard AI core and can chain with other AI cores for enhanced coverage."
 	
 	Aredja2AIBehemethCore = "Behemeth AI Core"
 	Aredja2AIBehemethCoreIcon = &Aredja2AIBehemethCore
-	Aredja2AIBehemethCoreDesc = "A massive AI control center that operates parts within a 17-tile radius. Provides exceptional crew replacement capabilities and can network with other AI cores for ultimate ship automation."
+	Aredja2AIBehemethCoreDesc = "A massive AI control center that operates parts within a 15-tile radius. Provides exceptional crew replacement capabilities and can network with other AI cores for ultimate ship automation."
 
 	// Overclock descriptions used by SecondaryToolTip
 	Aredja2AILargeCoreOverclockDesc = "An efficiency boost, overclocking the AI core well beyond recommended speeds. With the heat gains, the Large Core also gains a 3 tile increase in every direction, a buff of 4 per part, and a total crew replacement of 48."
-	Aredja2AIBehemethCoreOverclockDesc = "An incredible boost, overclocking the AI cores well beyond recommended speeds. With the massive heat gains, the Behemeth Core also gains a 13 tile increase in every direction and a total crew replacement cap of 256."
+	Aredja2AIBehemethCoreOverclockDesc = "An incredible boost, overclocking the AI cores well beyond recommended speeds. With the massive heat gains, the Behemeth Core also gains a 11 tile increase in every direction and a total crew replacement cap of 128."
 }
 
 Stats
